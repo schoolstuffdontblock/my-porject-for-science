@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mammal Adaptation Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a2540;
+    --blue: #1a6aad;
+    --blue-mid: #2d82c9;
+    --blue-light: #d6eaf8;
+    --blue-pale: #eef6fd;
+    --white: #ffffff;
+    --gray-100: #f4f7fb;
+    --gray-200: #e2eaf3;
+    --gray-500: #7a90a8;
+    --gray-700: #334d65;
+    --text: #0d2035;
+    --border: #c8dcea;
+    --accent: #0e7dc7;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-100);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--blue-mid);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    height: 60px;
+    gap: 0;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-right: auto;
+    letter-spacing: 0.01em;
+  }
+  .nav-logo span { color: #7ec8f0; }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0;
+  }
+  .nav-links li button {
+    background: none;
+    border: none;
+    color: #a8c9e4;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0 1.1rem;
+    height: 60px;
+    transition: color 0.2s, background 0.2s;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    top: 3px;
+  }
+  .nav-links li button:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+  .nav-links li button.active {
+    color: #7ec8f0;
+    border-bottom-color: #7ec8f0;
+  }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #123a5c 60%, #1a5a8a 100%);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d82c9' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(46,130,201,0.25);
+    border: 1px solid rgba(126,200,240,0.4);
+    color: #7ec8f0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--white);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .hero h1 em { color: #7ec8f0; font-style: normal; }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: #a8c9e4;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-animals {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-animal-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(126,200,240,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 2rem;
+    min-width: 180px;
+  }
+  .hero-animal-card .animal-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7ec8f0;
+    margin-bottom: 0.4rem;
+  }
+  .hero-animal-card .animal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .hero-animal-card .animal-sci {
+    font-size: 0.78rem;
+    color: #a8c9e4;
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+  .hero-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(46,130,201,0.3);
+    border: 1px solid rgba(126,200,240,0.35);
+    border-radius: 50%;
+    color: #7ec8f0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    align-self: center;
+  }
+
+  /* MAIN LAYOUT */
+  .main-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .section-lead {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--blue-mid);
+    border-radius: 2px;
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .card-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  /* TWO COLUMN SPLIT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  .animal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid var(--gray-200);
+    margin: -1.5rem -1.5rem 1.25rem;
+  }
+  .animal-header.platypus { background: #e8f3fb; }
+  .animal-header.shrew { background: #f0faf4; }
+  .animal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .platypus .animal-dot { background: var(--blue-mid); }
+  .shrew .animal-dot { background: #2aaa70; }
+  .animal-header-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .animal-header-sci {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+
+  /* FIELD ROWS */
+  .field-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: start;
+  }
+  .field-row:last-child { border-bottom: none; }
+  .field-label {
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 0.1rem;
+  }
+  /* Filled text replaces input/textarea */
+  .field-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0.25rem 0;
+    border-bottom: 1.5px solid var(--gray-200);
+    min-height: 1.8rem;
+  }
+  .field-value.multiline {
+    min-height: 72px;
+  }
+
+  /* TABLE-STYLE COMPARISON */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .compare-table th {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: #a8c9e4;
+  }
+  .compare-table th:first-child { color: var(--white); background: #0d2e4a; }
+  .compare-table th.col-plat { background: #1a4a75; color: #9dd4f7; }
+  .compare-table th.col-shrew { background: #145e3d; color: #8be3bf; }
+  .compare-table td {
+    padding: 0.85rem 1.1rem;
+    font-size: 0.88rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-200);
+    line-height: 1.6;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: var(--blue-pale); }
+  .compare-table td:first-child {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gray-700);
+    background: var(--gray-100);
+    width: 160px;
+  }
+
+  /* VENN AREA */
+  .venn-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 700px) { .venn-area { grid-template-columns: 1fr; } }
+  .venn-col {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .venn-col-header {
+    padding: 0.75rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .venn-col-header.only-plat { background: #daeef9; color: #1a5a8a; }
+  .venn-col-header.both { background: #e9e4f7; color: #3d2e8a; }
+  .venn-col-header.only-shrew { background: #d9f3e8; color: #145e3d; }
+  .venn-items {
+    padding: 0.75rem 1rem;
+    min-height: 160px;
+    font-size: 0.87rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  /* BODY SYSTEMS */
+  .system-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .system-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .system-card-head {
+    padding: 0.65rem 1.1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--blue-pale);
+    color: var(--blue);
+    border-bottom: 1px solid var(--border);
+  }
+  .system-card-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .system-half {
+    padding: 0.85rem;
+    border-right: 1px solid var(--gray-200);
+  }
+  .system-half:last-child { border-right: none; }
+  .system-half-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .system-half-label.plat { color: var(--blue-mid); }
+  .system-half-label.shrew { color: #2aaa70; }
+  .system-half p {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* CONCLUSION */
+  .conclusion-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .conclusion-prompt {
+    background: var(--navy);
+    color: #a8c9e4;
+    padding: 1.1rem 1.5rem;
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .conclusion-prompt strong { color: #7ec8f0; font-style: normal; font-weight: 500; }
+  .conclusion-write {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+  .word-count {
+    font-size: 0.75rem;
+    color: #2aaa70;
+    text-align: right;
+    padding: 0 1.5rem 1rem;
+    font-weight: 300;
+  }
+
+  /* SOURCES */
+  .source-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .source-row:last-child { border-bottom: none; }
+  .source-num {
+    width: 2rem; height: 2rem;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 0.78rem;
+    font-weight: 500;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .source-val {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    padding: 0.25rem 0;
+    border-bottom: 1.5px solid var(--gray-200);
+  }
+  .source-label {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* RUBRIC */
+  .rubric-table { width: 100%; border-collapse: collapse; }
+  .rubric-table th {
+    background: var(--navy);
+    color: #a8c9e4;
+    padding: 0.75rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  .rubric-table td {
+    padding: 0.85rem 1rem;
+    font-size: 0.87rem;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  .rubric-table tr:last-child td { border-bottom: none; }
+  .rubric-table tr:nth-child(even) td { background: var(--blue-pale); }
+  .rubric-table td:first-child { font-weight: 500; color: var(--navy); }
+  .rubric-badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .badge-req { background: #daeef9; color: #1a5a8a; }
+  .badge-opt { background: #e9e4f7; color: #3d2e8a; }
+
+  /* PRINT */
+  @media print {
+    nav { display: none; }
+    .page { display: block !important; page-break-before: always; }
+    .page:first-child { page-break-before: auto; }
+    .hero { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Mammal <span>Adaptations</span></div>
+    <ul class="nav-links">
+      <li><button class="active" onclick="showPage('home')">Overview</button></li>
+      <li><button onclick="showPage('platypus')">Platypus</button></li>
+      <li><button onclick="showPage('shrew')">Hero Shrew</button></li>
+      <li><button onclick="showPage('body-systems')">Body Systems</button></li>
+      <li><button onclick="showPage('compare')">Comparison</button></li>
+      <li><button onclick="showPage('conclusion')">Conclusion</button></li>
+      <li><button onclick="showPage('sources')">Sources</button></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE: HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">Mammals Research Project</div>
+    <h1>Adaptations Across<br><em>Contrasting Habitats</em></h1>
+    <p class="hero-subtitle">A scientific comparison of two extraordinary mammals and how their unique adaptations allow them to thrive in completely different environments.</p>
+    <div class="hero-animals">
+      <div class="hero-animal-card">
+        <div class="animal-label">Animal One</div>
+        <div class="animal-name">Duck-Billed Platypus</div>
+        <div class="animal-sci">Ornithorhynchus anatinus</div>
+      </div>
+      <div class="hero-vs">VS</div>
+      <div class="hero-animal-card">
+        <div class="animal-label">Animal Two</div>
+        <div class="animal-name">Hero Shrew</div>
+        <div class="animal-sci">Scutisorex somereni</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    <div class="section-title">Project Information</div>
+    <div class="divider"></div>
+    <p class="section-lead">Basic project details.</p>
+    <div class="card">
+      <div class="field-row">
+        <div class="field-label">Student Name</div>
+        <div class="field-value">Brandon</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Class / Period</div>
+        <div class="field-value">Biology, Period 3</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Teacher</div>
+        <div class="field-value">Mrs. Cohen</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Date Submitted</div>
+        <div class="field-value">04/08/2026</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Project Title</div>
+        <div class="field-value">Extraordinary Mammals: Survival at the Extremes</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2rem;">Project Requirements</div>
+    <div class="divider"></div>
+    <p class="section-lead">A quick checklist of what must be included in this project.</p>
+    <div class="card">
+      <table class="rubric-table" style="border-radius:8px;overflow:hidden;">
+        <thead>
+          <tr>
+            <th>Requirement</th>
+            <th>Description</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Basic Information</td>
+            <td>Classification, habitat, geographic range for both animals</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Physical Adaptations</td>
+            <td>Specific body features that aid survival, with scientific explanation</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Body Systems</td>
+            <td>How key organ systems function (circulatory, nervous, skeletal, etc.)</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Diet &amp; Reproduction</td>
+            <td>What each animal eats and how it reproduces</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Survival Traits</td>
+            <td>Behavioral and physiological traits that support survival</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Comparison</td>
+            <td>Similarities, differences, and Venn analysis</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Conclusion</td>
+            <td>5-7 sentence paragraph with evidence-based argument</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td>Sources</td>
+            <td>At least 2 reliable, cited sources</td>
+            <td><span class="rubric-badge badge-req">Required</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: PLATYPUS -->
+<div id="page-platypus" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Duck-Billed Platypus</div>
+    <div class="divider"></div>
+    <p class="section-lead">Ornithorhynchus anatinus — detailed scientific information.</p>
+
+    <div class="card">
+      <div class="card-title">Basic Information</div>
+      <div class="field-row">
+        <div class="field-label">Class / Order</div>
+        <div class="field-value">Mammalia / Monotremata</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Habitat Type</div>
+        <div class="field-value">Freshwater streams, rivers, and lakes with earthen banks for burrowing; temperate and subtropical waterways</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Geographic Range</div>
+        <div class="field-value">Eastern Australia (Queensland to Tasmania) and King Island in Bass Strait</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Body Size</div>
+        <div class="field-value">40–60 cm in length; males ~1.5–2 kg, females ~0.7–1.6 kg</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Lifespan</div>
+        <div class="field-value">~11–17 years in the wild; up to 21 years in captivity</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Physical Adaptations</div>
+      <div class="field-row">
+        <div class="field-label">Duck Bill</div>
+        <div class="field-value multiline">The soft, leathery bill contains approximately 40,000 electroreceptors and 60,000 mechanoreceptors that detect electric fields generated by the muscle contractions of prey underwater. This allows the platypus to hunt with its eyes, ears, and nostrils closed, relying entirely on electrical and pressure cues — an adaptation unique among mammals.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Webbed Feet</div>
+        <div class="field-value multiline">Forefeet are heavily webbed for powerful swimming strokes; the webbing folds back on land to expose claws for digging. Hind feet provide steering. This dual-function design allows efficient locomotion in both aquatic and terrestrial environments.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Beaver-like Tail</div>
+        <div class="field-value multiline">The broad, flattened tail acts as a rudder during swimming and serves as a fat storage reserve, helping the platypus survive periods of reduced food availability. It does not aid in propulsion (the forelimbs do that), but provides crucial balance and steering.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Venomous Spur</div>
+        <div class="field-value multiline">Males possess a hollow crural spur on each hind ankle connected to a venom gland in the thigh. The venom contains defensin-like peptides unique to monotremes and causes intense, long-lasting pain in other mammals. It is most potent during breeding season, suggesting use in male competition.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Dense Fur</div>
+        <div class="field-value multiline">The coat consists of a dense underfur (~900 hairs/cm²) that traps a layer of air, providing waterproofing and insulation in cold water. Outer guard hairs repel water. The fur also reflects ultraviolet light, appearing biofluorescent under UV — a recently discovered trait whose function is not yet fully understood.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Other Adaptations</div>
+        <div class="field-value multiline">The platypus has a reduced metabolic rate (~30% lower than placental mammals of similar size), which reduces caloric requirements. It can also slow its heart rate during diving. It lacks a true stomach — food passes directly from the esophagus to the intestine — but uses cheek pouches to store prey during dives.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Diet</div>
+      <div class="field-row">
+        <div class="field-label">Food Sources</div>
+        <div class="field-value multiline">Carnivorous; feeds primarily on aquatic invertebrates including freshwater shrimp, yabbies (crayfish), insect larvae (mayfly, stonefly), worms, and small fish. May consume up to 20–30% of its body weight per day.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Hunting Method</div>
+        <div class="field-value multiline">Dives to the riverbed and sweeps its bill from side to side, detecting electric fields and water movements with electroreceptors and mechanoreceptors. Eyes, ears, and nostrils are shut during dives of 30–140 seconds. Prey is stored in cheek pouches and ground up using keratinous pads (no teeth) at the surface.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Digestion Notes</div>
+        <div class="field-value multiline">The platypus has no true stomach; the esophagus connects directly to the small intestine, and gastric acid is absent. Food is mechanically ground by horny grinding pads on the jaws, and digestion is handled entirely by intestinal enzymes. This is an ancestral monotreme trait.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Reproduction</div>
+      <div class="field-row">
+        <div class="field-label">Type</div>
+        <div class="field-value">Oviparous (egg-laying mammal) — one of only five surviving monotreme species</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Clutch / Litter</div>
+        <div class="field-value">1–3 eggs per clutch (typically 2); small, leathery, ~11 mm in diameter</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Incubation / Gestation</div>
+        <div class="field-value">~10 days embryonic development in utero; ~10 days incubation externally after laying</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Parental Care</div>
+        <div class="field-value multiline">Females incubate eggs by curling around them in a sealed burrow. Hatchlings (called puggles) are born altricial, blind, and ~15 mm long. They lap up milk that seeps through patches of skin on the mother's abdomen (no nipples). Young remain in the burrow for 3–4 months before emerging.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Survival Traits</div>
+      <div class="field-row">
+        <div class="field-label">Behavioral</div>
+        <div class="field-value multiline">Primarily nocturnal and crepuscular (active at dawn and dusk), reducing exposure to terrestrial predators. Largely solitary. Digs extensive burrow systems in riverbanks — nesting burrows can exceed 20 meters in length with a sealed chamber at the end.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Physiological</div>
+        <div class="field-value multiline">Can tolerate body temperatures as low as 5°C and maintain thermoregulation. Hemoglobin has unusually high oxygen affinity, extending diving capability. The genome contains both reptilian and mammalian immune genes, giving the platypus a broad innate immune repertoire.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Threats / Predators</div>
+        <div class="field-value multiline">Natural predators include large reptiles (goannas, freshwater crocodiles), raptors, and introduced red foxes. The greatest modern threats are habitat loss from land clearing, drought, invasive predators, and entanglement in yabby traps and fishing nets.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Conservation Status</div>
+        <div class="field-value">Near Threatened (IUCN Red List, 2016); population declining</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SHREW -->
+<div id="page-shrew" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Hero Shrew</div>
+    <div class="divider"></div>
+    <p class="section-lead">Scutisorex somereni — detailed scientific information.</p>
+
+    <div class="card">
+      <div class="card-title">Basic Information</div>
+      <div class="field-row">
+        <div class="field-label">Class / Order</div>
+        <div class="field-value">Mammalia / Eulipotyphla (family Soricidae)</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Habitat Type</div>
+        <div class="field-value">Tropical rainforest floor and forest edges; dense leaf litter and rotting logs of the Congo Basin lowland forest</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Geographic Range</div>
+        <div class="field-value">Central Africa — Democratic Republic of Congo, Uganda, Rwanda, and adjacent areas</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Body Size</div>
+        <div class="field-value">13–15 cm body length (plus ~8 cm tail); weight ~70–115 g — large for a shrew</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Lifespan</div>
+        <div class="field-value">Estimated 1–3 years in the wild; exact captive data limited due to rarity in collections</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Physical Adaptations</div>
+      <div class="field-row">
+        <div class="field-label">Interlocking Spine</div>
+        <div class="field-value multiline">The lumbar vertebrae are uniquely modified with interlocking bony projections (articular processes) that create an extraordinarily rigid yet flexible spinal column. Each vertebra meshes with its neighbors in five distinct contact points. This produces exceptional compressive strength — adult humans have stood on a living hero shrew without causing injury. The function in the wild likely involves prying under bark or rocks to access prey, or resisting predator constriction.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Muscle Mass</div>
+        <div class="field-value multiline">The paraspinal and core musculature is disproportionately large relative to body size, supporting and powering the reinforced spine. This gives the hero shrew a muscular bulk unusual in small insectivores, and enables it to exert crushing lateral forces with its torso — critical for forcing open tight spaces to access food.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Sensory Organs</div>
+        <div class="field-value multiline">Eyes are small and vision is poor — typical for dense undergrowth where light is minimal. However, the vibrissae (whiskers) are long and highly innervated, providing detailed tactile information about the immediate environment. The sense of smell is acute and is used to locate prey under leaf litter and soil.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Teeth / Jaw</div>
+        <div class="field-value multiline">Like all shrews, the hero shrew has pigmented (reddish-tipped) teeth reinforced with iron oxide, increasing hardness and wear resistance. The dental formula allows for consumption of hard-bodied invertebrates. Jaws produce a high bite force relative to skull size, enabling it to crush beetle exoskeletons and other tough prey.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Body Shape</div>
+        <div class="field-value multiline">The body is compact and cylindrical, well-suited for navigating dense undergrowth and tunneling through leaf litter. Short, powerful limbs allow rapid directional changes on the forest floor. The long, mobile snout aids in probing crevices during foraging.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Other Adaptations</div>
+        <div class="field-value multiline">A musky scent produced by flank glands may serve in communication and territory marking. The dense, soft fur provides thermal insulation in humid forest environments and some protection from ectoparasites.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Diet</div>
+      <div class="field-row">
+        <div class="field-label">Food Sources</div>
+        <div class="field-value multiline">Carnivorous insectivore; feeds on earthworms, beetles, grasshoppers, centipedes, spiders, small vertebrates, and occasionally plant matter. Will consume nearly any prey item it can overpower, reflecting its high metabolic demands.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Foraging Method</div>
+        <div class="field-value multiline">Forages continuously through leaf litter and under bark using its elongated, highly mobile snout and sensitive vibrissae to detect prey. The powerful spine and musculature allow it to wedge itself under logs and rocks, leveraging them open to expose hidden invertebrates — a foraging technique unique among shrews.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Metabolic Notes</div>
+        <div class="field-value multiline">Like all shrews, the hero shrew has an extremely high mass-specific metabolic rate, requiring almost continuous feeding to avoid starvation. Heart rate can exceed 1,200 beats per minute. It must consume food roughly equivalent to its own body weight every 24 hours to sustain its energy demands.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Reproduction</div>
+      <div class="field-row">
+        <div class="field-label">Type</div>
+        <div class="field-value">Viviparous (live-bearing placental mammal)</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Litter Size</div>
+        <div class="field-value">Typically 1–5 offspring per litter; average ~3</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Gestation Period</div>
+        <div class="field-value">Estimated ~21–28 days (precise data limited); typical for soricid shrews</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Parental Care</div>
+        <div class="field-value multiline">Young are born altricial — naked, blind, and helpless. The mother nurses them with milk via functional nipples (unlike the platypus). Weaning occurs at approximately 3–4 weeks. Maturation is rapid; juveniles can reach reproductive age within 2–3 months, reflecting the high predation pressure and short lifespan of small mammals.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Survival Traits</div>
+      <div class="field-row">
+        <div class="field-label">Behavioral</div>
+        <div class="field-value multiline">Largely diurnal and crepuscular; active during most hours due to metabolic pressure. Solitary outside of breeding season. Will produce loud, high-pitched vocalizations when threatened. The musky scent glands may deter some predators.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Physiological</div>
+        <div class="field-value multiline">The reinforced spine is the hero shrew's most remarkable physiological trait, conferring mechanical strength far beyond what body size would suggest. High hemoglobin concentration supports the intense oxygen demand of a hyperactive lifestyle. Immune function is robust, an adaptation to the parasite-rich forest floor environment.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Threats / Predators</div>
+        <div class="field-value multiline">Preyed upon by large owls, snakes, and small felids. Deforestation of the Congo Basin is the primary anthropogenic threat, reducing available habitat and fragmenting populations. The species is also sometimes hunted by indigenous communities who attribute cultural significance to its spine.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Conservation Status</div>
+        <div class="field-value">Least Concern (IUCN Red List); population considered stable within intact forest</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: BODY SYSTEMS -->
+<div id="page-body-systems" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Body Systems Comparison</div>
+    <div class="divider"></div>
+    <p class="section-lead">A comparison of how key organ systems function in each animal.</p>
+
+    <div class="system-grid">
+
+      <div class="system-card">
+        <div class="system-card-head">Skeletal System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Dense, compact skeleton suited for burrowing and swimming. Shoulder girdle retains reptilian elements (an interclavicle and separate coracoid bones). Limbs are splayed laterally like a reptile, enabling powerful digging. Bones are robust but not overly heavy, balancing strength with buoyancy.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>The lumbar spine is the defining skeletal feature — vertebrae interlock via complex articular processes in five contact points, creating extreme compressive strength. This is unique among all ~5,500 known mammal species. The rest of the skeleton is typical for a small insectivore: lightweight, with short limb bones adapted for rapid terrestrial movement.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Nervous System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Highly specialized bill innervation: ~40,000 electroreceptors detect weak electric fields (0.05–0.1 mV/cm) from prey muscle contractions, processed by an unusually large region of the somatosensory cortex. Brain structure is primitive in some respects (no corpus callosum), yet the sensory cortex is extraordinarily expanded for bill input.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>The nervous system is tuned for fast reflexes and sensory integration. Dense innervation of the vibrissae provides high-resolution tactile mapping of the immediate environment. The olfactory bulb is proportionally large, reflecting heavy reliance on smell to locate prey. Rapid neural conduction rates match the animal's intense, continuous activity.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Circulatory System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Four-chambered heart; resting heart rate ~140 bpm, slowing during dives via the dive reflex. Hemoglobin has high oxygen affinity, enabling efficient oxygen extraction during prolonged underwater foraging. Peripheral vasoconstriction during dives redirects oxygenated blood to brain and heart.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>Extremely high heart rate — often exceeding 800–1,200 bpm — driven by the intense mass-specific metabolic rate of all shrews. Cardiac output per gram of body tissue is among the highest of any mammal. High hemoglobin concentration ensures rapid oxygen delivery to constantly active muscles and organs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Respiratory System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>The platypus is an obligate air-breather; it cannot breathe underwater. Dives typically last 30–140 seconds. Lung capacity is proportionally large, and myoglobin concentration in muscles is elevated, extending functional dive time by storing oxygen in muscle tissue. Nostrils are sealed shut underwater.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>Breathing rate is rapid — commensurate with the high heart rate and metabolic intensity. Lung surface area per gram of body mass is high, maximizing gas exchange efficiency. The animal rarely rests and must maintain nearly continuous aerobic respiration to sustain energy output.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Reproductive System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Monotreme: the female has two ovaries but only the left is functional. Eggs are fertilized internally, incubate briefly in the uterus (~10 days), then laid as leathery-shelled eggs. Mammary glands lack nipples; milk seeps through areolar patches of skin on the abdomen. The male and female share a single cloaca for excretion and reproduction.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>Placental mammal with a bicornuate uterus typical of insectivores. Internal gestation via a chorioallantoic placenta that nourishes embryos directly. Functional nipples allow direct milk transfer to young. Reproductive maturity is reached within months, enabling rapid population recovery after mortality events.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Muscular System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Forelimb musculature is highly developed for powerful swimming strokes using a reptile-like lateral rowing motion rather than the up-and-down stroke of most aquatic mammals. Hind limbs and tail provide steering. Powerful forelimbs also drive burrow excavation through compact riverbank soil.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>The paraspinal musculature flanking the modified lumbar vertebrae is massively developed relative to body size, enabling the spine's extraordinary force output. Core and hip flexor muscles are similarly hypertrophied. Overall, the muscular system is built for explosive strength in a very small body — a rare combination in mammals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Integumentary System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>Dense, layered fur (~900 underfur hairs/cm²) traps air for thermal insulation in cold water. Outer guard hairs are water-repellent. Males carry a venomous crural spur on each hind limb, connected to a venom-secreting crural gland. The skin of the bill is soft, moist, and densely packed with sensory pores.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>Dense, soft, grayish-brown fur provides thermal regulation in the humid forest environment. Flank glands produce a musky secretion used in communication and possibly predator deterrence. Long, stiff vibrissae project from the snout and are deeply embedded in sensory-rich follicles, functioning as precision tactile sensors.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <div class="system-card-head">Digestive System</div>
+        <div class="system-card-body">
+          <div class="system-half">
+            <div class="system-half-label plat">Platypus</div>
+            <p>No true stomach — the esophagus connects directly to the small intestine and gastric acid production is absent, an ancestral monotreme trait. Prey is stored in cheek pouches during dives and ground by keratinous jaw pads at the surface. Digestion depends entirely on intestinal enzymes and bile acids.</p>
+          </div>
+          <div class="system-half">
+            <div class="system-half-label shrew">Hero Shrew</div>
+            <p>Highly efficient digestive system with a short gut transit time to meet extreme metabolic demands. A true stomach with acid secretion enables rapid protein breakdown from invertebrate prey. The intestines are proportionally long for maximal nutrient absorption. The hero shrew must digest and process food at near-continuous rates to avoid energy deficit.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: COMPARE -->
+<div id="page-compare" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Similarities and Differences</div>
+    <div class="divider"></div>
+    <p class="section-lead">An analysis of what the two animals share and where they diverge.</p>
+
+    <div style="margin-bottom:2rem;">
+      <div class="section-title" style="font-size:1.1rem;">Side-by-Side Comparison</div>
+      <div style="height:8px;"></div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="col-plat">Duck-Billed Platypus</th>
+            <th class="col-shrew">Hero Shrew</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Habitat</td>
+            <td>Freshwater streams and rivers with earthen banks in eastern Australia and Tasmania; temperate to subtropical climate</td>
+            <td>Dense tropical rainforest floor of the Congo Basin, Central Africa; humid, low-light environment year-round</td>
+          </tr>
+          <tr>
+            <td>Key Adaptation</td>
+            <td>Electroreceptive bill with ~40,000 electroreceptors for detecting prey underwater without use of other senses</td>
+            <td>Interlocking lumbar vertebrae producing extraordinary spinal compressive strength — unique among all mammals</td>
+          </tr>
+          <tr>
+            <td>Diet</td>
+            <td>Aquatic invertebrates: freshwater shrimp, crayfish, insect larvae, worms; dives to riverbed to forage</td>
+            <td>Terrestrial invertebrates: earthworms, beetles, centipedes, spiders; pries open bark and logs to access prey</td>
+          </tr>
+          <tr>
+            <td>Reproduction</td>
+            <td>Oviparous monotreme; lays 1–3 leathery eggs; no nipples — milk seeps through skin patches; young stay in burrow 3–4 months</td>
+            <td>Viviparous placental; litter of 1–5 young; functional nipples; weaning at ~3–4 weeks; rapid maturation</td>
+          </tr>
+          <tr>
+            <td>Unique Trait</td>
+            <td>Only mammal with a functional electric sense (electroreception) used in active hunting</td>
+            <td>Only mammal with interlocking lumbar vertebrae — can reportedly support the weight of an adult human</td>
+          </tr>
+          <tr>
+            <td>Predators / Threats</td>
+            <td>Red foxes, raptors, large reptiles; main threats are habitat loss, drought, fishing net entanglement</td>
+            <td>Large owls, snakes, small felids; main threat is deforestation of the Congo Basin</td>
+          </tr>
+          <tr>
+            <td>Conservation</td>
+            <td>Near Threatened (IUCN); declining due to habitat degradation and climate change</td>
+            <td>Least Concern (IUCN); stable within intact forest habitat</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title" style="font-size:1.1rem; margin-top:2rem;">Similarities and Differences (Venn)</div>
+    <div style="height:8px;"></div>
+    <p class="section-lead" style="margin-bottom:1.25rem;">Points unique to each animal, and those they share.</p>
+    <div class="venn-area">
+      <div class="venn-col">
+        <div class="venn-col-header only-plat">Platypus Only</div>
+        <div class="venn-items">
+          • Egg-laying (oviparous) mammal<br>
+          • Electroreception via bill<br>
+          • Venomous spur (males only)<br>
+          • No true stomach<br>
+          • Milk secreted through skin patches (no nipples)<br>
+          • Aquatic / semi-aquatic lifestyle<br>
+          • Biofluorescent fur under UV light<br>
+          • Retains reptilian shoulder bones
+        </div>
+      </div>
+      <div class="venn-col">
+        <div class="venn-col-header both">Both Animals</div>
+        <div class="venn-items">
+          • Class Mammalia (warm-blooded)<br>
+          • Produce milk to nurse young<br>
+          • Carnivorous diet (invertebrates)<br>
+          • Largely solitary<br>
+          • Dense fur for insulation<br>
+          • Highly specialized sensory systems<br>
+          • Altricial young at birth<br>
+          • Nocturnal or crepuscular tendencies
+        </div>
+      </div>
+      <div class="venn-col">
+        <div class="venn-col-header only-shrew">Hero Shrew Only</div>
+        <div class="venn-items">
+          • Interlocking lumbar spine<br>
+          • Placental (viviparous) reproduction<br>
+          • Functional nipples<br>
+          • Tropical rainforest habitat<br>
+          • True stomach with acid digestion<br>
+          • Heart rate up to 1,200 bpm<br>
+          • Musky flank scent glands<br>
+          • Iron-reinforced (pigmented) teeth
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: CONCLUSION -->
+<div id="page-conclusion" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Conclusion</div>
+    <div class="divider"></div>
+    <p class="section-lead">A well-developed concluding paragraph using evidence from research.</p>
+
+    <div class="conclusion-box">
+      <div class="conclusion-prompt">
+        <strong>Prompt:</strong> Which mammal is better adapted to its environment and why? Use specific evidence from your research to support your argument.
+      </div>
+      <div class="conclusion-write">
+        Both the platypus and the hero shrew are highly adapted to their environments, but the platypus shows a more remarkable degree of specialization. Its electroreceptive bill — packed with around 40,000 electroreceptors — lets it hunt with eyes, ears, and nostrils closed, a trait found in no other mammal. Combined with webbed feet, a steering tail, and waterproof fur, the platypus has a tightly integrated set of traits for aquatic predation. The hero shrew's spine is impressive, but its exact ecological function is still debated. Every key adaptation of the platypus has a clear, observed purpose in its freshwater habitat, making it one of the most completely adapted mammals alive today.
+      </div>
+      <div class="word-count">107 words</div>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem;">
+      <div class="card-title">Reflection Questions</div>
+      <div class="field-row">
+        <div class="field-label">What surprised you most about these animals?</div>
+        <div class="field-value multiline">The platypus has no true stomach — food goes straight from the esophagus to the intestine. It kept this ancient trait alongside its modern electroreceptive bill, showing how evolution can mix old and new features in one animal.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Which adaptation did you find most impressive?</div>
+        <div class="field-value multiline">The platypus's electroreception stands out most. It hunts in total darkness by sensing electrical fields from muscle contractions — no sight, hearing, or smell needed. 40,000 electroreceptors packed into a soft bill is an incredible feat of sensory evolution.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">How does habitat shape evolution?</div>
+        <div class="field-value multiline">The platypus evolved in cold streams where prey is hard to see, so sensing and waterproofing won out. The hero shrew evolved on a dense forest floor, so physical strength mattered more. Neither animal's traits would work in the other's environment — selection builds animals that fit their specific place.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SOURCES -->
+<div id="page-sources" class="page">
+  <div class="main-wrap">
+    <div class="section-title">Sources and Bibliography</div>
+    <div class="divider"></div>
+    <p class="section-lead">Cited sources in MLA format.</p>
+
+    <div class="card">
+      <div class="card-title">Cited Sources</div>
+
+      <div class="source-row">
+        <div class="source-num">1</div>
+        <div>
+          <div class="source-label">Source Title / Name</div>
+          <div class="source-val">Australian Platypus Conservancy — Platypus Biology</div>
+        </div>
+        <div>
+          <div class="source-label">URL or Publication Info</div>
+          <div class="source-val">Australian Platypus Conservancy. <em>Platypus Biology.</em> platypus.asn.au. Accessed 8 Apr. 2026.</div>
+        </div>
+      </div>
+
+      <div class="source-row">
+        <div class="source-num">2</div>
+        <div>
+          <div class="source-label">Source Title / Name</div>
+          <div class="source-val">Kingdon, J. — The Kingdon Pocket Guide to African Mammals</div>
+        </div>
+        <div>
+          <div class="source-label">URL or Publication Info</div>
+          <div class="source-val">Kingdon, Jonathan. <em>The Kingdon Pocket Guide to African Mammals.</em> Princeton UP, 2004.</div>
+        </div>
+      </div>
+
+      <div class="source-row">
+        <div class="source-num">3</div>
+        <div>
+          <div class="source-label">Source Title / Name</div>
+          <div class="source-val">IUCN Red List — Ornithorhynchus anatinus</div>
+        </div>
+        <div>
+          <div class="source-label">URL or Publication Info</div>
+          <div class="source-val">Woinarski, J. &amp; Burbidge, A.A. <em>Ornithorhynchus anatinus.</em> IUCN Red List of Threatened Species, 2016. iucnredlist.org. Accessed 8 Apr. 2026.</div>
+        </div>
+      </div>
+
+      <div class="source-row">
+        <div class="source-num">4</div>
+        <div>
+          <div class="source-label">Source Title / Name</div>
+          <div class="source-val">Stanley, W.T. et al. — "A New Species of Hero Shrew" (2013)</div>
+        </div>
+        <div>
+          <div class="source-label">URL or Publication Info</div>
+          <div class="source-val">Stanley, W.T., et al. "A New Species of Hero Shrew (Mammalia: Soricidae) from Democratic Republic of Congo." <em>Journal of Mammalogy,</em> vol. 94, no. 5, 2013, pp. 1027–1044.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem;">
+      <div class="card-title">Notes on Source Quality</div>
+      <div class="field-row">
+        <div class="field-label">Why are these sources reliable?</div>
+        <div class="field-value multiline">The Australian Platypus Conservancy is a scientific nonprofit organization dedicated to platypus research and conservation, and their biological summaries are written and reviewed by zoologists. The Kingdon guide is authored by a leading authority on African mammals and published by Princeton University Press. The IUCN Red List is the global authority on species conservation status, compiled by specialist groups of scientists. The Stanley et al. paper is a peer-reviewed article published in the Journal of Mammalogy, one of the premier journals in mammalian biology. Together, these sources represent a mix of institutional, academic, and peer-reviewed material that meets the standards for scientific reliability.</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Date Accessed</div>
+        <div class="field-value">April 8, 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
