@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bypass Terminal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  #terminal {
+    background: #000;
+    font-family: 'Courier New', monospace;
+    min-height: 520px;
+    width: 100%;
+    max-width: 780px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #1a1a1a;
+  }
+  #code-area {
+    font-size: 12px;
+    color: #fff;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.5;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+  }
+  #cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: #fff;
+    vertical-align: middle;
+    animation: blink 0.6s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  #pw-section {
+    display: none;
+    margin-top: 24px;
+    border-top: 1px solid #333;
+    padding-top: 18px;
+    position: relative;
+    z-index: 2;
+  }
+  #pw-label { color: #aaa; font-size: 13px; margin-bottom: 10px; }
+  #pw-row { display: flex; align-items: center; gap: 10px; }
+  #pw-input {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    outline: none;
+    width: 220px;
+    letter-spacing: 2px;
+  }
+  #pw-input:focus { border-color: #555; }
+  #pw-submit {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  #pw-submit:hover { border-color: #777; color: #ccc; }
+  #pw-hint { color: #333; font-size: 11px; margin-top: 8px; }
+  #rain-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+    display: none;
+    border-radius: 8px;
+    z-index: 3;
+  }
+  #popup-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    z-index: 10;
+  }
+  #popup-overlay.active { display: flex; }
+  #popup-box {
+    background: rgba(4,4,8,0.96);
+    border: 1px solid rgba(0,255,255,0.3);
+    border-radius: 8px;
+    padding: 30px 32px 24px;
+    width: 380px;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    z-index: 11;
+  }
+  #popup-title { color: #0ff; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; opacity: 0.8; }
+  #popup-confirm { color: #fff; font-size: 15px; margin-bottom: 6px; font-weight: bold; }
+  #popup-user { color: #c084fc; font-size: 14px; letter-spacing: 1px; margin-bottom: 22px; font-weight: bold; }
+  #popup-sep { border: none; border-top: 1px solid #1a1a1a; margin-bottom: 18px; }
+  #popup-link-label { color: #555; font-size: 11px; letter-spacing: 2px; margin-bottom: 8px; }
+  #popup-link-input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    color: #0ff;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: 4px;
+    outline: none;
+  }
+  #popup-link-input:focus { border-color: rgba(0,255,255,0.25); }
+  #scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,255,0.12), transparent);
+    pointer-events: none;
+    animation: scan 3s linear infinite;
+    opacity: 0.3;
+    z-index: 1;
+  }
+  @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+</style>
+</head>
+<body>
+<div id="terminal">
+  <div id="scan-line"></div>
+  <div id="code-area"><span id="cursor"></span></div>
+  <div id="pw-section">
+    <div id="pw-label">&#9658; AUTHENTICATION REQUIRED — enter access key:</div>
+    <div id="pw-row">
+      <input id="pw-input" type="password" autocomplete="off" placeholder="_ _ _ _ _ _" spellcheck="false" />
+      <button id="pw-submit">ENTER</button>
+    </div>
+    <div id="pw-hint">// hint: try something to bypass the system</div>
+  </div>
+  <canvas id="rain-canvas"></canvas>
+  <div id="popup-overlay">
+    <div id="popup-box">
+      <div id="popup-title">&#9672; SYSTEM ACCESS GRANTED &#9672;</div>
+      <div id="popup-confirm">CONFIRMATION COMPLETE</div>
+      <div id="popup-user">WELCOME USER — <span id="user-code"></span></div>
+      <hr id="popup-sep"/>
+      <div id="popup-link-label">// DESTINATION LINK</div>
+      <input id="popup-link-input" type="text" placeholder="paste your link here..." />
+    </div>
+  </div>
+</div>
+
+<script>
+const codeSnippets = [
+  "import sys, hashlib, struct, threading\nfrom cryptlib.core import AES256, RSAKeyPair, HMAC_SHA512\n",
+  "def init_session(token: bytes, entropy_pool: list) -> dict:\n    iv = os.urandom(16)\n    key = PBKDF2(token, iv, iterations=480000, dkLen=32)\n    session = {'id': uuid4().hex, 'ts': time.time_ns()}\n    return AES256.encrypt(json.dumps(session).encode(), key)\n\n",
+  "class NetworkSocket(BaseProto):\n    def __init__(self, host, port=8443, tls=True):\n        self._buf = bytearray(65536)\n        self._cipher = TLS13_AES_GCM()\n        super().__init__(host, port, verify_cert=tls)\n\n    def handshake(self, peer_cert):\n        ch = ClientHello(random=os.urandom(32))\n        sh = self._recv_server_hello()\n        self._master_secret = HKDF(ch.random + sh.random)\n        return self._verify_finished(sh.verify_data)\n\n",
+  "REGISTRY = {}\ndef register(name):\n    def decorator(cls):\n        REGISTRY[name] = cls()\n        return cls\n    return decorator\n\n@register('auth_v2')\nclass AuthModule(BaseModule):\n    priority = 99\n    def execute(self, ctx):\n        if not ctx.token or not verify_hmac(ctx.token, SECRET):\n            raise PermissionDenied(0x403)\n        ctx.user = decode_jwt(ctx.token)\n\n",
+  "def traverse_graph(adj: dict, src: int, visited=None):\n    if visited is None: visited = set()\n    visited.add(src)\n    heap = [(0, src)]\n    dist = {src: 0}\n    while heap:\n        d, u = heapq.heappop(heap)\n        for v, w in adj.get(u, []):\n            if dist.get(v, float('inf')) > d + w:\n                dist[v] = d + w\n                heapq.heappush(heap, (dist[v], v))\n    return dist\n\n",
+  "PAYLOAD_MAGIC = b'\\xDE\\xAD\\xBE\\xEF\\x00\\xFF'\nPROTO_VERSION = (3, 14, 159)\nfor attempt in range(2048):\n    try:\n        conn = TCPSocket.connect(GATEWAY_ADDR, timeout=1.5)\n        conn.send(PAYLOAD_MAGIC + struct.pack('>3B', *PROTO_VERSION))\n        ack = conn.recv(8)\n        if ack[:4] == PAYLOAD_MAGIC: break\n    except TimeoutError: continue\n\n",
+  "with open('/dev/urandom', 'rb') as f:\n    _seed = int.from_bytes(f.read(8), 'big')\nrandom.seed(_seed ^ time.time_ns())\n\nMANIFEST = [\n    ('core.auth', 0xFF, True),\n    ('net.proxy', 0x1A, False),\n    ('crypto.pool', 0xCB, True),\n]\nfor mod, flag, required in MANIFEST:\n    loader.inject(mod, flag, strict=required)\n\n"
+];
+
+const fullCode = codeSnippets.join('');
+let charIndex = 0;
+const codeArea = document.getElementById('code-area');
+const cursor = document.getElementById('cursor');
+
+function typeChar() {
+  if (charIndex < fullCode.length) {
+    codeArea.insertBefore(document.createTextNode(fullCode.slice(charIndex, charIndex + 3)), cursor);
+    charIndex += 3;
+    setTimeout(typeChar, 18);
+  } else {
+    cursor.style.display = 'none';
+    showPasswordSection();
+  }
+}
+
+function showPasswordSection() {
+  document.getElementById('pw-section').style.display = 'block';
+  setTimeout(() => document.getElementById('pw-input').focus(), 100);
+}
+
+const rainCanvas = document.getElementById('rain-canvas');
+const rctx = rainCanvas.getContext('2d');
+const rainChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(){}[]<>/\\|~\u2211\u2206\u03A9\u2248\u222B\u221A\u03C0\u00A7\u03C8\u03BB\u03A6\u039E\u00B6';
+const rainColors = [
+  '#00ffff','#ff00ff','#a855f7','#7c3aed',
+  '#06b6d4','#d946ef','#8b5cf6','#22d3ee',
+  '#f0abfc','#67e8f9','#e879f9','#c084fc',
+  '#00ff88','#ff6aff','#38bdf8','#fb7185',
+  '#facc15','#4ade80','#f97316','#e11d48'
+];
+
+let drops = [];
+
+function startRain() {
+  const terminal = document.getElementById('terminal');
+  rainCanvas.width = terminal.offsetWidth;
+  rainCanvas.height = terminal.offsetHeight;
+  rainCanvas.style.display = 'block';
+  rctx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
+
+  const cols = Math.floor(rainCanvas.width / 13);
+  drops = Array.from({length: cols}, (_, i) => ({
+    x: i * 13,
+    y: Math.random() * -rainCanvas.height * 2,
+    speed: 5 + Math.random() * 14,
+    color: rainColors[Math.floor(Math.random() * rainColors.length)],
+    secondColor: rainColors[Math.floor(Math.random() * rainColors.length)],
+    len: 18 + Math.floor(Math.random() * 22),
+    chars: [],
+    swapTimer: Math.random() * 150,
+    trailAlphas: []
+  }));
+  drops.forEach(d => {
+    d.chars = Array.from({length: d.len}, () => rainChars[Math.floor(Math.random() * rainChars.length)]);
+    d.trailAlphas = Array.from({length: d.len}, (_, j) => Math.max(0, 1 - (j / d.len) * 0.9));
+  });
+
+  let last = 0;
+  function frame(ts) {
+    if (ts - last > 30) {
+      last = ts;
+      rctx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
+      rctx.font = 'bold 13px Courier New';
+
+      drops.forEach(drop => {
+        drop.swapTimer -= 30;
+        if (drop.swapTimer <= 0) {
+          const idx = Math.floor(Math.random() * drop.chars.length);
+          drop.chars[idx] = rainChars[Math.floor(Math.random() * rainChars.length)];
+          drop.swapTimer = 20 + Math.random() * 100;
+        }
+
+        drop.chars.forEach((ch, j) => {
+          const alpha = drop.trailAlphas[j];
+          if (alpha <= 0.02) return;
+          rctx.globalAlpha = alpha;
+          if (j === 0)       rctx.fillStyle = '#ffffff';
+          else if (j <= 2)   rctx.fillStyle = '#00ffff';
+          else if (j <= 7)   rctx.fillStyle = drop.color;
+          else               rctx.fillStyle = drop.secondColor;
+          rctx.fillText(ch, drop.x, drop.y - j * 14);
+        });
+
+        rctx.globalAlpha = 1;
+        drop.y += drop.speed;
+
+        if (drop.y - drop.len * 14 > rainCanvas.height) {
+          drop.y = -30 - Math.random() * 120;
+          drop.speed = 5 + Math.random() * 14;
+          drop.color = rainColors[Math.floor(Math.random() * rainColors.length)];
+          drop.secondColor = rainColors[Math.floor(Math.random() * rainColors.length)];
+          drop.len = 18 + Math.floor(Math.random() * 22);
+          drop.chars = Array.from({length: drop.len}, () => rainChars[Math.floor(Math.random() * rainChars.length)]);
+          drop.trailAlphas = Array.from({length: drop.len}, (_, j) => Math.max(0, 1 - (j / drop.len) * 0.9));
+        }
+      });
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+const chars62 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const userCodeEl = document.getElementById('user-code');
+const charTimings = [200, 400, 300, 700, 400, 20, 350, 150, 600, 250];
+
+function buildUserCodeSpans() {
+  userCodeEl.innerHTML = '';
+  return Array.from({length: 10}, () => {
+    const s = document.createElement('span');
+    s.textContent = chars62[Math.floor(Math.random() * chars62.length)];
+    userCodeEl.appendChild(s);
+    return s;
+  });
+}
+
+function scheduleCharUpdate(spans, idx) {
+  setTimeout(() => {
+    spans[idx].textContent = chars62[Math.floor(Math.random() * chars62.length)];
+    scheduleCharUpdate(spans, idx);
+  }, charTimings[idx % charTimings.length]);
+}
+
+function showPopup() {
+  const overlay = document.getElementById('popup-overlay');
+  overlay.classList.add('active');
+  const spans = buildUserCodeSpans();
+  for (let i = 0; i < 10; i++) scheduleCharUpdate(spans, i);
+  setTimeout(() => document.getElementById('popup-link-input').focus(), 100);
+}
+
+function handleBypass() {
+  const val = document.getElementById('pw-input').value.trim().toLowerCase();
+  if (val === 'bypass') {
+    document.getElementById('pw-section').style.opacity = '0.35';
+    startRain();
+    setTimeout(showPopup, 1800);
+  } else {
+    const input = document.getElementById('pw-input');
+    input.style.borderColor = '#f43';
+    input.value = '';
+    setTimeout(() => { input.style.borderColor = '#333'; }, 600);
+  }
+}
+
+document.getElementById('pw-submit').addEventListener('click', handleBypass);
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') handleBypass(); });
+
+setTimeout(typeChar, 300);
+</script>
+</body>
+</html>
