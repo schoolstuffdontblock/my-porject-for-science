@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GRACE Classwork and HW site</title>
+    <link rel="icon" href="https://s3.amazonaws.com/cstest/mb/2025/01/GraceChristian_Eagles_Logo2.png.220x220_q95.png" type="image/x-icon">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Buttons container layout */
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* 3 per row if space allows */
+    gap: 12px; /* space between buttons */
+}
+
+/* Buttons inside letter sections */
+.buttons-container input[type="button"] {
+    background: rgba(90,150,255,0.06); /* glass-like background */
+    border: 1px solid rgba(90,150,255,0.2);
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 16px; /* bigger font */
+    padding: 12px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+}
+
+.buttons-container input[type="button"]:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+/* Empty message styling */
+.buttons-container .empty-message {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 10px 0;
+    font-style: italic;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #1c1f2b 0%, #1f2638 50%, #1b2333 100%);
+    --glass: rgba(90, 150, 255, 0.06);
+    --glass-strong: rgba(90, 150, 255, 0.12);
+    --accent: #5da9ff;
+    --accent-hover: #79c0ff;
+    --text-main: #ffffff;
+    --text-muted: rgba(200,220,255,0.6);
+}
+
+* { box-sizing: border-box; }
+
+body {
+   font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-main);
+    display: block;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 12px;
+    justify-items: start;
+}
+
+.letter-folder, .folder-contents {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+#sections-container {
+    display: block; /* default block */
+    text-align: left;
+
+.main-content {
+    margin-left: 0;
+    flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 75px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(60,110,200,0.12), rgba(30,50,90,0.25));
+    border-right: 1px solid rgba(120,170,255,0.15);
+    backdrop-filter: blur(20px);
+    padding: 20px 10px;
+    display: block;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 95px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 40px 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgb(140, 180, 255);
+}
+
+/* Letter Folders */
+.letter-folder {
+    background: var(--glass-strong);
+    padding: 18px 20px;
+    border-radius: 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.letter-folder:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Folder Contents */
+.folder-contents {
+    display: none;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+
+.folder-contents .letter-section {
+    margin: 6px 0;
+    padding: 18px;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.folder-contents .letter-section:hover {
+    transform: translateY(-2px);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebar { width: 60px; }
+    .main-content {flex: 1;
+    margin: 0 auto; /* remove sidebar offset */
+    max-width: 1200px;
+    padding: 40px 20px; /* adjust padding if needed */
+    height: 100vh;
+    overflow-y: auto;}
+    h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<div class="sidebar" id="sidebar" style="display:none;"></div>
+
+    <div class="main-content">
+        <h1>GRACE Classwork Folders</h1>
+        <h2 style="color: #a4aec7;">Made by GRACE student community</h2>
+        <h3 style="color: #505064;">Version 1.0.10<h3/>
+        <br>
+        <br>
+
+        <!-- Sections container where letters will be loaded -->
+        <div id="sections-container"></div>
+    </div>
+
+<script>
+// Toggle folder visibility
+function toggleFolder(letterId) {
+    const folder = document.getElementById(`folder-${letterId}`);
+    if (folder) folder.style.display = folder.style.display === 'block' ? 'none' : 'block';
+}
+
+// Wrap letter sections into folders after generating them
+function wrapSectionsIntoFolders() {
+    const container = document.getElementById('sections-container');
+    const sections = Array.from(container.querySelectorAll('.letter-section'));
+
+    // Clear container
+    container.innerHTML = '';
+
+    // Create folder for each section
+    sections.forEach(section => {
+        const char = section.id.replace('section-', '');
+
+        const folderHeader = document.createElement('div');
+        folderHeader.className = 'letter-folder';
+        folderHeader.textContent = char;
+        folderHeader.onclick = () => toggleFolder(char);
+
+        const folderContent = document.createElement('div');
+        folderContent.className = 'folder-contents';
+        folderContent.id = `folder-${char}`;
+
+        // Append the section into the folder content
+        folderContent.appendChild(section);
+
+        container.appendChild(folderHeader);
+        container.appendChild(folderContent);
+    });
+}
+
+// Wrap sections **after they are generated**
+function generateAllSectionsWithFolders() {
+    // Run original generation
+    generateAllSections();
+
+    // Use setTimeout to wrap sections after DOM updates
+    setTimeout(wrapSectionsIntoFolders, 50);
+}
+
+// Start
+window.addEventListener('load', () => {
+    generateAllSectionsWithFolders();
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js"></script>
+</body>
+</html>
