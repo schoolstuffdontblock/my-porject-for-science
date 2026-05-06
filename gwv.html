@@ -268,8 +268,7 @@
     <input class="search-input" id="searchBox" placeholder="Search games...">
     <button class="disguise-btn" onclick="hideSite()">Hide Site</button>
     <button class="disguise-btn" onclick="openGoogleWindow()">Open Google</button>
-
-
+    <button class="disguise-btn" onclick="launchRandomGame()">🎲 Surprise Me!</button>
 
     <div class="search-results" id="searchResults"></div>
 </div>
@@ -280,7 +279,7 @@
             <div class="logo"><img src="https://i.ibb.co/99Lc2mGt/GCSeagle.png" alt="Vault logo"></div>
             <div>
                 <h2>Grace Work Vault</h2>
-                <h3>Version 2.1.4.0</h3>
+                <h3>Version 2.1.5.0</h3>
 				<a class="back-link"
 				   href="https://sites.google.com/gracechristian.net/graceworkvault/home"
 				   target="_blank">
@@ -2479,6 +2478,23 @@ searchBox.addEventListener('input', () => {
 </script>
 
 <script>
+
+function launchRandomGame() {
+    if (!files || files.length === 0) return;
+
+    const file = files[Math.floor(Math.random() * files.length)];
+    recordRecentGame(file);
+
+    const normalized = file.endsWith('.html') ? file : file + '.html';
+    const encoded = encodeURIComponent(normalized);
+
+    fetch(`https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile/UGS-Files/${encoded}?t=${Date.now()}`)
+        .then(r => r.text())
+        .then(t => {
+            const w = window.open('about:blank', '_blank');
+            if (w) { w.document.open(); w.document.write(t); w.document.close(); }
+        });
+}
 
 		function openGoogleWindow(){
     window.open(
