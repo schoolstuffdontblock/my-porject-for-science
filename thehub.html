@@ -48,7 +48,6 @@
             margin-top: 5px;
         }
 
-        /* The Bento Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -61,14 +60,14 @@
             padding: 30px;
             text-decoration: none;
             color: white;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
         .card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             background: #222;
         }
 
@@ -94,10 +93,9 @@
         }
 
         .card:hover .arrow {
-            transform: translateX(5px);
+            transform: translateX(8px);
         }
 
-        /* Decorative Background Element */
         .card::before {
             content: "";
             position: absolute;
@@ -129,25 +127,29 @@
     </header>
 
     <div class="grid">
-        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/cup_casino" class="card">
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/cup_casino" 
+           target="_blank" rel="noopener noreferrer" class="card">
             <h2>Cup Casino</h2>
             <p>Interactive gaming experience with a sleek interface.</p>
             <div class="arrow">→</div>
         </a>
 
-        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/gwv" class="card">
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/gwv" 
+           target="_blank" rel="noopener noreferrer" class="card">
             <h2>Grace Work Vault</h2>
             <p>Secure digital storage and project management repository.</p>
             <div class="arrow">→</div>
         </a>
 
-        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/randombutton" class="card">
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/randombutton" 
+           target="_blank" rel="noopener noreferrer" class="card">
             <h2>Random Button</h2>
             <p>A discovery tool for jumping into the unknown.</p>
             <div class="arrow">→</div>
         </a>
 
-        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/secret" class="card">
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/secret" 
+           target="_blank" rel="noopener noreferrer" class="card">
             <h2>MacBook Tech Desk</h2>
             <p>Exclusive access to the hidden tech dashboard.</p>
             <div class="arrow">→</div>
