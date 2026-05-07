@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub</title>
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --accent: #ff6600;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            padding: 40px 0;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* The Bento Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 30px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: #222;
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .card .arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* Decorative Background Element */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Project Hub</h1>
+        <p>A collection of web experiments and tech tools.</p>
+    </header>
+
+    <div class="grid">
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/cup_casino" class="card">
+            <h2>Cup Casino</h2>
+            <p>Interactive gaming experience with a sleek interface.</p>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/gwv" class="card">
+            <h2>Grace Work Vault</h2>
+            <p>Secure digital storage and project management repository.</p>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/randombutton" class="card">
+            <h2>Random Button</h2>
+            <p>A discovery tool for jumping into the unknown.</p>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="https://schoolstuffdontblock.github.io/my-porject-for-science/secret" class="card">
+            <h2>MacBook Tech Desk</h2>
+            <p>Exclusive access to the hidden tech dashboard.</p>
+            <div class="arrow">→</div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
