@@ -808,7 +808,7 @@ function filterGames(filter){const sections={originals:'section-originals',slots
 const originals=[
   {id:'crash',name:'Crash',sub:'Cup Original',badge:'HOT',cat:'originals',drawFn:'drawCrashThumb'},
   {id:'mines',name:'Mines',sub:'Cup Original',badge:'HOT',cat:'originals',drawFn:'drawMinesThumb'},
-  {id:'plinko',name:'Plinko',sub:'Cup Original',badge:'NEW',cat:'originals',drawFn:'drawPlinkoThumb'},
+  {id:'plinko',name:'Plinko',sub:'Cup Original',badge:'Go AWAY',cat:'originals',drawFn:'drawPlinkoThumb'},
   {id:'dice',name:'Dice Roll',sub:'Cup Original',cat:'originals',drawFn:'drawDiceThumb'},
 ];
 const slotsGames=[
@@ -861,7 +861,7 @@ function drawSicBoThumb(c){if(!c)return;const ctx=c.getContext('2d');const W=c.w
 
 // ===================== LIVE FEED =====================
 const liveNames=['CryptoKing','LuckyAce','GreenMamba','Shadow99','FastBucks','NeonRider','HighRoller','QuickDraw','BlazeFox','StarWolf','DarkHorse','MegaBet','IronDuke','GoldRush','SilverBolt','StormRider','PhantomX','NightOwl','FrostByte','VenomPeak','AceHunter','DiamondHand'];
-const liveGameNames=['Crash','Mines','Plinko','Blackjack','Roulette','Slots','Dice','Hi-Lo','Baccarat','Poker','Aviator','Keno','Wheel'];
+const liveGameNames=['Crash','Mines','Blackjack','Roulette','Slots','Dice','Hi-Lo','Baccarat','Poker','Aviator','Keno','Wheel'];
 function liveTick(){const feed=document.getElementById('live-feed');const win=Math.random()>0.45;const amt=(Math.random()*10000+5).toFixed(2);const user=liveNames[Math.floor(Math.random()*liveNames.length)];const game=liveGameNames[Math.floor(Math.random()*liveGameNames.length)];const row=document.createElement('div');row.className='bet-row';row.innerHTML=`<div class="bet-av">${user.slice(0,2).toUpperCase()}</div><div class="bet-info"><div class="bet-user">${user}</div><div class="bet-game">${game}</div></div><div class="bet-amt ${win?'g':'r'}">${win?'+':'-'}$${parseFloat(amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`;feed.insertBefore(row,feed.firstChild);while(feed.children.length>22)feed.removeChild(feed.lastChild);}
 liveTick();setInterval(liveTick,1100);
 
@@ -885,7 +885,7 @@ function openGame(g){
     if(g.id==='baccarat')initBac();
     if(g.id.startsWith('slots_'))initSlots(g.id);
     if(g.id==='crash')initCrashChart();
-    if(g.id==='plinko')setTimeout(()=>initPlinko(),50);
+    if(g.id==='no')setTimeout(()=>initno(),50);
     if(g.id==='roulette')setTimeout(()=>{initRouletteWheel();drawRouletteTable();},50);
     if(g.id==='dice')setTimeout(()=>{drawDie('dice-c1',1);drawDie('dice-c2',1);},50);
     if(g.id==='wof')setTimeout(()=>initWOF(),50);
@@ -904,7 +904,7 @@ function buildGame(id){
   if(id==='roulette')return buildRoulette();
   if(id==='dice')return buildDice();
   if(id==='mines')return buildMines();
-  if(id==='plinko')return buildPlinko();
+  if(id==='no')return buildno();
   if(id==='baccarat')return buildBac();
   if(id==='hilo')return buildHiLo();
   if(id==='keno')return buildKeno();
