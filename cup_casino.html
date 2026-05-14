@@ -1022,7 +1022,7 @@ function clickMine(cell,idx){if(!minesActive||cell.classList.contains('rev'))ret
 function minesCashout(){if(!minesActive)return;minesActive=false;const m=minesMult(minesRevealed);const win=parseFloat((minesBet*m).toFixed(2));balance+=win;recordBet('Mines',minesBet,win>minesBet?win:0);showResultRaw('Cashed at '+m.toFixed(2)+'x! Won '+fmt(win)+'!',true);document.getElementById('mines-co').disabled=true;document.getElementById('mines-start').disabled=false;document.querySelectorAll('.mine-cell').forEach(c=>c.onclick=null);toast('Cashed out: +'+fmt(win)+'!');updateBal();}
 
 // PLINKO - hard to win, multi-ball
-const plinkoModes={easy:{rows:9,buckets:[2,.2,.2,.1,.1,.1,.1,.1,.2,.2,2]},medium:{rows:11,buckets:[2,.5,.4,.3,.2,.1,.01,..1,.2,.3,.4,.5,2]},hard:{rows:13,buckets:[1.5,1,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,1,1.5]},insane:{rows:16,buckets:[100,20,10,5,2.5,1,.5,.5,.1,.05,.05,.1,.5,.5,1,2.5,5,10,20,100]}};
+const plinkoModes={easy:{rows:9,buckets:[2,.2,.2,.1,.1,.1,.1,.1,.2,.2,2]},medium:{rows:11,buckets:[2,.5,.4,.3,.2,.1,.01,.1,.2,.3,.4,.5,2]},hard:{rows:13,buckets:[1.5,1,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,.5,1,1.5]},insane:{rows:16,buckets:[100,20,10,5,2.5,1,.5,.5,.1,.05,.05,.1,.5,.5,1,2.5,5,10,20,100]}};
 let plinkoMode='easy',plinkoBalls=[],plinkoAnimId=null;
 const plinkoState={pegs:[]};
 const pBucketColor=(v)=>{if(v<=.1)return'#cc0022';if(v<=.5)return'#ff3355';if(v<2)return'#ff6622';if(v<10)return'#4488ff';if(v<100)return'#00ff88';return'#ffd700';};
