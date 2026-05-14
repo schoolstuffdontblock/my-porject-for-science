@@ -1120,7 +1120,78 @@ function placeSportsBet(){const stake=parseFloat(document.getElementById('slip-s
 // PROMOS
 function fillPromo(code){document.getElementById('promo-in').value=code;}
 function redeemCode(){const v=document.getElementById('promo-in').value.trim().toUpperCase();const m=document.getElementById('promo-msg');if(v==='ADMIN123'){adminMode=true;const ab=document.querySelector('.admin-only');if(ab)ab.style.display='';setTheme('admin',document.querySelector('[data-theme="admin"]'));const amt=prompt('ADMIN MODE ACTIVATED\nSet balance (blank = keep current):','');if(amt!==null&&amt.trim()!==''){const n=parseFloat(amt);if(!isNaN(n)&&n>=0){balance=n;updateBal();}}m.style.color='#00aaff';m.textContent='Admin mode ON - all cheats enabled!';toast('Admin mode activated!');setTimeout(()=>m.textContent='',5000);return;}if(v==='VIPWEEK'){if(!currentUser){m.style.color='var(--red)';m.textContent='Log in to claim VIPWEEK.';return;}if(accounts[currentUser]?.vipWeekUsed){m.style.color='var(--red)';m.textContent='VIPWEEK already redeemed on this account.';return;}balance+=10000;accounts[currentUser].vipWeekUsed=true;updateBal();m.style.color='var(--g)';m.textContent='+$10,000 VIP Reload added!';toast('VIPWEEK redeemed! +$10,000!');document.getElementById('promo-in').value='';setTimeout(()=>m.textContent='',3000);return;}m.style.color='var(--red)';m.textContent='Invalid or expired code.';setTimeout(()=>m.textContent='',2500);}
+function fillPromo(code) {
+    document.getElementById('promo-in').value = code;
+}
 
+// Function to process and validate codes
+function redeemCode() {
+    const input = document.getElementById('promo-in');
+    const msg = document.getElementById('promo-msg');
+    const val = input.value.trim().toUpperCase();
+
+    // 1. ADMIN MODE
+    if (val === 'ADMIN123') {
+        adminMode = true;
+        const adminBtn = document.querySelector('.admin-only');
+        if (adminBtn) adminBtn.style.display = '';
+        setTheme('admin', document.querySelector('[data-theme="admin"]'));
+
+        const amt = prompt('ADMIN MODE ACTIVATED\nSet balance (blank = keep current):', '');
+        if (amt !== null && amt.trim() !== '') {
+            const n = parseFloat(amt);
+            if (!isNaN(n) && n >= 0) {
+                balance = n;
+                updateBal();
+            }
+        }
+        msg.style.color = '#00aaff';
+        msg.textContent = 'Admin mode ON - all cheats enabled!';
+        toast('Admin mode activated!');
+        setTimeout(() => msg.textContent = '', 5000);
+        return;
+    }
+
+    // 2. VIP WEEK
+    if (val === 'VIPWEEK') {
+        if (!currentUser) {
+            msg.style.color = 'var(--red)';
+            msg.textContent = 'Log in to claim VIPWEEK.';
+            return;
+        }
+        if (accounts[currentUser]?.vipWeekUsed) {
+            msg.style.color = 'var(--red)';
+            msg.textContent = 'VIPWEEK already redeemed on this account.';
+            return;
+        }
+        balance += 10000;
+        accounts[currentUser].vipWeekUsed = true;
+        updateBal();
+        msg.style.color = 'var(--g)';
+        msg.textContent = '+$10,000 VIP Reload added!';
+        toast('VIPWEEK redeemed! +$10,000!');
+        input.value = '';
+        setTimeout(() => msg.textContent = '', 3000);
+        return;
+    }
+
+    // 3. FAKEJEW (Debt Code)
+    if (val === 'FAKEJEW') {
+        balance = -300;
+        updateBal();
+        msg.style.color = 'var(--red)';
+        msg.textContent = 'Debt Applied: Balance set to -$300.';
+        toast('Code applied: You are now in debt!');
+        input.value = '';
+        setTimeout(() => msg.textContent = '', 3000);
+        return;
+    }
+
+    // 4. INVALID CODE
+    msg.style.color = 'var(--red)';
+    msg.textContent = 'Invalid or expired code.';
+    setTimeout(() => msg.textContent = '', 2500);
+}
 // AVIATOR - Avia Masters node engine fullscreen
 function openAviator(){if(document.getElementById('aviator-overlay'))return;const overlay=document.createElement('div');overlay.id='aviator-overlay';overlay.style.cssText='position:fixed;inset:0;z-index:1000;background:#03060a;display:flex;flex-direction:column;font-family:Inter,sans-serif;';overlay.innerHTML=buildAviatorHTML();document.body.appendChild(overlay);setTimeout(initAviator,60);}
 function closeAviator(){avCancelAnim();const o=document.getElementById('aviator-overlay');if(o)o.remove();}
