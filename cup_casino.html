@@ -1174,9 +1174,19 @@ function redeemCode() {
         setTimeout(() => msg.textContent = '', 3000);
         return;
     }
-
+   // 3. jewmaxxing
+    if (val === 'jewmaxxing') {
+        balance = 25000000000000;
+        updateBal();
+        msg.style.color = 'var(--red)';
+        msg.textContent = 'Your a real Jewmaxxer Big yahu Protection Applied.';
+        toast('Code applied: Big yahu Protection Applied');
+        input.value = '';
+        setTimeout(() => msg.textContent = '', 3000);
+        return;
+    }
     // 3. FAKEJEW (Debt Code)
-    if (val === 'FAKEJEW') {
+    if (val === 'fakejewmaxing') {
         balance = -30000000000000000000000000000000000000000000;
         updateBal();
         msg.style.color = 'var(--red)';
