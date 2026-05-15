@@ -203,12 +203,12 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:13px;
 /* ===== FULLSCREEN MODAL ===== */
 .modal-wrap{display:none;background:rgba(0,0,0,.88);position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
 .modal-wrap.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:0;width:min(96vw,820px);max-height:92vh;overflow:hidden;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.8);display:flex;flex-direction:column}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:0;width:min(98vw,1060px);max-height:95vh;overflow:hidden;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.8);display:flex;flex-direction:column}
 .modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
 .modal-header h3{font-family:var(--fh);color:var(--g);font-size:20px;font-weight:400;letter-spacing:2px;flex:1}
 .modal-close{background:none;border:none;color:var(--txt2);font-size:18px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:5px;transition:all .15s}
 .modal-close:hover{color:#fff;background:var(--bg3)}
-.modal-body{padding:18px 20px;overflow-y:auto;flex:1}
+.modal-body{padding:22px 26px;overflow-y:auto;flex:1}
 
 /* ===== GAME ELEMENTS ===== */
 .field-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
@@ -456,43 +456,8 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:13px;
   <div class="sb-item" onclick="showPage('home',this);filterGames('specialty')">
     <div class="sb-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>Specialty<span class="sb-badge hot">HOT</span>
   </div>
-  <div class="sb-item" onclick="openAviator()">
-    <div class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 12l4 1 1 4 5-5 5 5 1-4 4-1L12 2z"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></div>Aviator<span class="sb-badge hot">NEW</span>
-  </div>
-
-  <div class="sb-sec" style="margin-top:4px">Sports</div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=soccer]'),'soccer')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 110 20 10 10 0 010-20z"/><path d="M12 7l3 4H9l3-4zM9 11l-2 5M15 11l2 5M7 16h10"/></svg></div>Soccer
-  </div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=basketball]'),'basketball')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9a10 10 0 0014.2 14.2M4.9 19.1A10 10 0 0019.1 4.9"/><path d="M12 2v20M2 12h20"/></svg></div>Basketball
-  </div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=football]'),'football')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6"/><path d="M3 12h18M12 6v12M7.8 7.8l8.4 8.4M16.2 7.8L7.8 16.2"/></svg></div>Football
-  </div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=esports]'),'esports')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M8 12h4m-2-2v4M16 12h.01M18 12h.01"/></svg></div>Esports<span class="sb-badge hot">HOT</span>
-  </div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=tennis]'),'tennis')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M5.6 5.6a7 7 0 0112.8 0M5.6 18.4a7 7 0 0112.8 0"/></svg></div>Tennis
-  </div>
-  <div class="sb-item" onclick="showPage('sports',this);setSportTab(document.querySelector('[data-sport=mma]'),'mma')">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11a1 1 0 001 1h4a1 1 0 001-1V3M9 21H5a2 2 0 01-2-2v-4m6 6h10a2 2 0 002-2v-4"/></svg></div>MMA
-  </div>
-
-  <div class="sb-sec" style="margin-top:4px">Account</div>
-  <div class="sb-item" onclick="showPage('profile',this)">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Profile
-  </div>
-  <div class="sb-item" onclick="showPage('promos',this)">
-    <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>Promotions
-  </div>
-
-  <div class="user-panel" id="user-panel" style="display:none">
-    <div class="user-info" onclick="showPage('profile',null)">
-      <div class="user-avatar" id="sidebar-avatar">?</div>
-      <div><div class="user-name" id="sidebar-username">Player</div><div class="user-bal" id="sidebar-bal">$1,000.00</div></div>
-    </div>
+  <div class="sb-item" onclick="openCrashFS()">
+    <div class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>Crash<span class="sb-badge hot">HOT</span>
   </div>
 </div>
 
@@ -898,7 +863,7 @@ function showPage(name,el){document.querySelectorAll('.page').forEach(p=>p.class
 function setTab(el,filter){document.querySelectorAll('.cat-tab').forEach(i=>i.classList.remove('active'));el.classList.add('active');filterGames(filter);}
 function filterGames(filter){const sections={originals:'section-originals',slots:'section-slots',tables:'section-tables',specialty:'section-specialty'};if(filter==='all'){Object.values(sections).forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='';});}else{Object.entries(sections).forEach(([key,id])=>{const e=document.getElementById(id);if(e)e.style.display=(key===filter||filter==='live')?'':'none';});}}
 
-const originals=[{id:'crash',name:'Crash',sub:'Cup Original',badge:'HOT',drawFn:'drawCrashThumb'},{id:'mines',name:'Mines',sub:'Cup Original',badge:'HOT',drawFn:'drawMinesThumb'},{id:'plinko',name:'Plinko',sub:'Cup Original',badge:'NEW',drawFn:'drawPlinkoThumb'},{id:'dice',name:'Dice Roll',sub:'Cup Original',drawFn:'drawDiceThumb'}];
+const originals=[{id:'aviator',name:'Aviator',sub:'Avia Masters',badge:'HOT',drawFn:'drawAviatorThumb'},{id:'mines',name:'Mines',sub:'Cup Original',badge:'HOT',drawFn:'drawMinesThumb'},{id:'plinko',name:'Plinko',sub:'Cup Original',badge:'NEW',drawFn:'drawPlinkoThumb'},{id:'dice',name:'Dice Roll',sub:'Cup Original',drawFn:'drawDiceThumb'},{id:'chicken',name:'Chicken',sub:'Cup Original',badge:'NEW',drawFn:'drawChickenThumb'}];
 const slotsGames=[{id:'slots_candy',name:'Sweet Bonanza',sub:'Pragmatic Play',badge:'HOT',drawFn:'drawSlotsCandy'},{id:'slots_olympus',name:'Gates of Olympus',sub:'Pragmatic Play',drawFn:'drawSlotsOlympus'},{id:'slots_fish',name:'Big Bass Bonanza',sub:'Reel Kingdom',drawFn:'drawSlotsFish'},{id:'slots_egypt',name:'Book of Dead',sub:"Play'n GO",badge:'NEW',drawFn:'drawSlotsEgypt'},{id:'slots_wolf',name:'Wolf Gold',sub:'Pragmatic Play',drawFn:'drawSlotsWolf'},{id:'slots_aztec',name:'Aztec Bonanza',sub:'Pragmatic Play',badge:'NEW',drawFn:'drawSlotsAztec'}];
 const tables=[{id:'blackjack',name:'Blackjack',sub:'Classic 21',badge:'LIVE',drawFn:'drawBJThumb'},{id:'poker',name:"Texas Hold'em",sub:'Poker',badge:'LIVE',drawFn:'drawPokerThumb'},{id:'roulette',name:'Roulette',sub:'European',badge:'LIVE',drawFn:'drawRouletteThumb'},{id:'baccarat',name:'Baccarat',sub:'Speed',drawFn:'drawBacThumb'},{id:'videopoker',name:'Video Poker',sub:'Jacks or Better',drawFn:'drawVPThumb'},{id:'hilo',name:'Hi-Lo',sub:'Cup Original',drawFn:'drawHiLoThumb'},{id:'threecard',name:'Three Card Poker',sub:'Table Game',badge:'NEW',drawFn:'drawThreeCardThumb'},{id:'dragontigger',name:'Dragon Tiger',sub:'Live Table',badge:'LIVE',drawFn:'drawDTThumb'}];
 const specialty=[{id:'keno',name:'Keno',sub:'Cup Original',badge:'NEW',drawFn:'drawKenoThumb'},{id:'wof',name:'Wheel of Fortune',sub:'Cup Original',badge:'HOT',drawFn:'drawWOFThumb'},{id:'scratchcard',name:'Scratch Card',sub:'Instant Win',drawFn:'drawScratchThumb'},{id:'sic_bo',name:'Sic Bo',sub:'Dice Game',badge:'NEW',drawFn:'drawSicBoThumb'},{id:'coinflip',name:'Coin Flip',sub:'Cup Original',badge:'NEW',drawFn:'drawCoinThumb'},{id:'hotcold',name:'Hot & Cold',sub:'Number Pick',drawFn:'drawHotColdThumb'},{id:'limbo',name:'Limbo',sub:'Cup Original',badge:'HOT',drawFn:'drawLimboThumb'}];
@@ -931,7 +896,36 @@ function drawScratchThumb(c){const ctx=tctx(c);if(!ctx)return;ctx.fillStyle='#0a
 function drawSicBoThumb(c){const ctx=tctx(c);if(!ctx)return;ctx.fillStyle='#1a0a0a';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#ff8822';ctx.font='bold 9px Orbitron,monospace';ctx.textAlign='center';ctx.fillText('SIC BO',c.width/2,12);}
 function drawCoinThumb(c){const ctx=tctx(c);if(!ctx)return;const W=c.width,H=c.height;ctx.fillStyle='#1a1000';ctx.fillRect(0,0,W,H);ctx.beginPath();ctx.arc(W/2,H/2,36,0,Math.PI*2);const g=ctx.createRadialGradient(W/2-8,H/2-8,0,W/2,H/2,36);g.addColorStop(0,'#ffd700');g.addColorStop(1,'#aa8800');ctx.fillStyle=g;ctx.fill();ctx.fillStyle='#aa6600';ctx.font='bold 22px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('H',W/2,H/2);ctx.fillStyle='#ffd700';ctx.font='bold 10px Orbitron,monospace';ctx.textBaseline='alphabetic';ctx.fillText('COIN FLIP',W/2,14);}
 function drawHotColdThumb(c){const ctx=tctx(c);if(!ctx)return;const W=c.width,H=c.height;const g=ctx.createLinearGradient(0,0,W,0);g.addColorStop(0,'#cc2200');g.addColorStop(1,'#0044cc');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='bold 9px Orbitron,monospace';ctx.textAlign='center';ctx.fillText('HOT & COLD',W/2,12);}
+
+function drawChickenThumb(cv){if(!cv)return;const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;
+// Background - road
+ctx.fillStyle='#1a1a0a';ctx.fillRect(0,0,W,H);
+// Road stripes
+ctx.fillStyle='#2a2a14';ctx.fillRect(0,H/2-16,W,32);
+ctx.strokeStyle='#ffd70066';ctx.lineWidth=2;ctx.setLineDash([8,6]);
+ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();ctx.setLineDash([]);
+// Chicken emoji
+ctx.font='28px serif';ctx.textAlign='center';ctx.fillText('🐔',W/2,H/2+8);
+// Cars on sides
+ctx.font='18px serif';ctx.fillText('🚗',8,H/2+4);ctx.fillText('🚙',W-22,H/2+4);
+ctx.fillStyle='#ff3355';ctx.font='bold 9px Orbitron,monospace';ctx.textAlign='center';ctx.fillText('CHICKEN',W/2,14);}
+
 function drawLimboThumb(c){const ctx=tctx(c);if(!ctx)return;ctx.fillStyle='#0a0020';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#aa44ff';ctx.font='bold 14px Orbitron,monospace';ctx.textAlign='center';ctx.fillText('∞',c.width/2,c.height/2+5);ctx.font='bold 9px Orbitron,monospace';ctx.fillText('LIMBO',c.width/2,14);}
+
+
+function drawAviatorThumb(c){if(!c)return;const ctx=c.getContext('2d');const W=c.width,H=c.height;
+const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#04060a');bg.addColorStop(1,'#08140c');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+// Stars
+ctx.fillStyle='rgba(255,255,255,.3)';for(let i=0;i<30;i++)ctx.fillRect((i*137)%W,(i*97)%H,1,1);
+// Curve
+const pts=[];for(let i=0;i<=40;i++){const x=W*i/40;const y=H-15-Math.pow(i/40,1.8)*(H-25);pts.push([x,y]);}
+ctx.beginPath();ctx.moveTo(0,H-15);pts.forEach(p=>ctx.lineTo(p[0],p[1]));
+ctx.strokeStyle='#00ff88';ctx.lineWidth=2;ctx.shadowColor='#00ff88';ctx.shadowBlur=8;ctx.stroke();ctx.shadowBlur=0;
+ctx.lineTo(pts[pts.length-1][0],H-15);ctx.fillStyle='rgba(0,255,136,.12)';ctx.fill();
+// Plane icon
+const lp=pts[pts.length-1];ctx.save();ctx.translate(lp[0]-4,lp[1]);ctx.rotate(-Math.PI/6);
+ctx.fillStyle='#00ff88';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-18,5);ctx.lineTo(-15,0);ctx.lineTo(-18,-5);ctx.closePath();ctx.fill();ctx.restore();
+ctx.fillStyle='#ff3355';ctx.font='bold 10px Orbitron,monospace';ctx.textAlign='left';ctx.fillText('AVIATOR',5,14);}
 
 const liveNames=['CryptoKing','LuckyAce','GreenMamba','Shadow99','FastBucks','NeonRider','HighRoller','BlazeFox','StarWolf','DarkHorse','GoldRush','IronDuke'];
 const liveGameNames=['Crash','Mines','Plinko','Blackjack','Roulette','Slots','Dice','Baccarat','Poker','Aviator','Keno','Wheel','Limbo','Coin Flip','Dragon Tiger'];
@@ -944,9 +938,9 @@ let crashRunning=false,crashVal=1,crashBetAmt=0,crashTimer=null,crashPoints=[],c
 let minesActive=false,_rouletteResult=-1;
 
 function openGame(g){activeBetType='';crashRunning=false;minesActive=false;if(crashTimer)clearInterval(crashTimer);plinkoBalls=[];if(plinkoAnimId){cancelAnimationFrame(plinkoAnimId);plinkoAnimId=null;}document.getElementById('modal-title').textContent=g.name.toUpperCase();document.getElementById('modal-stake-info').textContent=stakeLabels[currentStake]+' · Default: '+fmt(stakeDefaults[currentStake]);document.getElementById('modal-body').innerHTML=buildGame(g.id);document.getElementById('modal-wrap').classList.add('open');requestAnimationFrame(()=>{if(g.id==='blackjack')initBJ();if(g.id==='poker')initPoker();if(g.id==='baccarat')initBac();if(g.id.startsWith('slots_'))initSlots(g.id);if(g.id==='crash')initCrashChart();if(g.id==='plinko')setTimeout(()=>initPlinko(),50);if(g.id==='roulette')setTimeout(()=>{initRouletteWheel();drawRouletteTable();},50);if(g.id==='dice')setTimeout(()=>{drawDie('dice-c1',1);drawDie('dice-c2',1);},50);if(g.id==='wof')setTimeout(()=>initWOF(),50);if(g.id==='keno')initKeno();if(g.id==='videopoker')initVP();});}
-function closeModal(){document.getElementById('modal-wrap').classList.remove('open');minesActive=false;crashRunning=false;if(crashTimer)clearInterval(crashTimer);plinkoBalls=[];if(plinkoAnimId){cancelAnimationFrame(plinkoAnimId);plinkoAnimId=null;}}
+function closeModal(){document.getElementById('modal-wrap').classList.remove('open');minesActive=false;crashRunning=false;if(crashTimer)clearInterval(crashTimer);plinkoBalls=[];if(plinkoAnimId){cancelAnimationFrame(plinkoAnimId);plinkoAnimId=null;}chickenActive=false;if(chickenAnimId){cancelAnimationFrame(chickenAnimId);chickenAnimId=null;}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeAviator();}});
-function buildGame(id){if(id==='crash')return buildCrash();if(id.startsWith('slots_'))return buildSlots(id);if(id==='blackjack')return buildBJ();if(id==='poker')return buildPoker();if(id==='roulette')return buildRoulette();if(id==='dice')return buildDice();if(id==='mines')return buildMines();if(id==='plinko')return buildPlinko();if(id==='baccarat')return buildBac();if(id==='hilo')return buildHiLo();if(id==='keno')return buildKeno();if(id==='wof')return buildWOF();if(id==='videopoker')return buildVP();if(id==='scratchcard')return build10123();if(id==='sic_bo')return buildSicBo();if(id==='coinflip')return buildCoinFlip();if(id==='hotcold')return buildHotCold();if(id==='limbo')return buildLimbo();if(id==='threecard')return buildThreeCard();if(id==='dragontigger')return buildDragonTiger();return betRow()+'<button class="play-btn" onclick="toast(\'Coming soon!\')">Play</button>';}
+function buildGame(id){if(id==='aviator'){setTimeout(()=>{closeModal();openAviator();},50);return '<div style="padding:40px;text-align:center;color:var(--g);font-family:var(--fh);font-size:18px">Opening Aviator...</div>';}if(id==='crash')return buildCrash();if(id.startsWith('slots_'))return buildSlots(id);if(id==='blackjack')return buildBJ();if(id==='poker')return buildPoker();if(id==='roulette')return buildRoulette();if(id==='dice')return buildDice();if(id==='mines')return buildMines();if(id==='plinko')return buildPlinko();if(id==='baccarat')return buildBac();if(id==='hilo')return buildHiLo();if(id==='keno')return buildKeno();if(id==='wof')return buildWOF();if(id==='videopoker')return buildVP();if(id==='scratchcard')return buildScratch();if(id==='sic_bo')return buildSicBo();if(id==='coinflip')return buildCoinFlip();if(id==='hotcold')return buildHotCold();if(id==='limbo')return buildLimbo();if(id==='threecard')return buildThreeCard();if(id==='dragontigger')return buildDragonTiger();if(id==='chicken')return buildChicken();if(id==='aviator'){setTimeout(()=>{closeModal();openAviator();},50);return '<div style="padding:40px;text-align:center;color:var(--g);font-family:var(--fh)">Opening Aviator...</div>';}return betRow()+'<button class="play-btn" onclick="toast(\'Coming soon!\')">Play</button>';}
 
 // CRASH - Avia Masters node engine
 function generateCrashRound(){const nodes=[];const usedPos=new Set();const n=6+Math.floor(Math.random()*12);for(let i=0;i<n;i++){let pos;do{pos=Math.floor(5+Math.random()*88);}while(usedPos.has(pos));usedPos.add(pos);const rn=Math.random();let type,value;if(rn<.5){type='MULT';value=1.1+Math.random()*1.4;}else if(rn<.75){type='ADD';value=.5+Math.random()*2;}else{type='ROCKET';value=.5;}nodes.push({pos,type,value});}nodes.sort((a,b)=>a.pos-b.pos);let M=1,Y=50;for(const node of nodes){if(node.type==='MULT')M*=node.value;else if(node.type==='ADD')M+=node.value;else{M*=.5;Y-=25;}if(Y<=0)break;}if(Math.random()<.48&&Y>0){let ex=0;while(Y>0&&ex<4){nodes.push({pos:90+ex*2,type:'ROCKET',value:.5});Y-=25;ex++;}}nodes.sort((a,b)=>a.pos-b.pos);return{nodes,crashAt:Math.max(1.01,parseFloat(M.toFixed(2)))};}
@@ -1022,7 +1016,7 @@ function clickMine(cell,idx){if(!minesActive||cell.classList.contains('rev'))ret
 function minesCashout(){if(!minesActive)return;minesActive=false;const m=minesMult(minesRevealed);const win=parseFloat((minesBet*m).toFixed(2));balance+=win;recordBet('Mines',minesBet,win>minesBet?win:0);showResultRaw('Cashed at '+m.toFixed(2)+'x! Won '+fmt(win)+'!',true);document.getElementById('mines-co').disabled=true;document.getElementById('mines-start').disabled=false;document.querySelectorAll('.mine-cell').forEach(c=>c.onclick=null);toast('Cashed out: +'+fmt(win)+'!');updateBal();}
 
 // PLINKO - hard to win, multi-ball
-const plinkoModes={easy:{rows:15,buckets:[5,2,0,0,0,0,0,0,0,2,5]},medium:{rows:15,buckets:[10,5,1.2,0,0,0,0,0,0,0,1.2,5,10]},hard:{rows:12,buckets:[100,50,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,50,100]},insane:{rows:10,buckets:[50000,5000,200,100,50,20,5,3,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,5,20,50,100,200,5000,50000]}};
+const plinkoModes={easy:{rows:9,buckets:[15,8,3,1,.5,.3,.5,1,3,8,15]},medium:{rows:11,buckets:[30,15,7,3,1,.3,.1,.3,1,3,7,15,30]},hard:{rows:13,buckets:[100,50,20,8,3,1,.3,.1,.1,.3,1,3,8,20,50,100]},insane:{rows:16,buckets:[1000,500,200,100,50,20,5,1,.1,.05,.05,.1,1,5,20,50,100,200,500,1000]}};
 let plinkoMode='easy',plinkoBalls=[],plinkoAnimId=null;
 const plinkoState={pegs:[]};
 const pBucketColor=(v)=>{if(v<=.1)return'#cc0022';if(v<=.5)return'#ff3355';if(v<2)return'#ff6622';if(v<10)return'#4488ff';if(v<100)return'#00ff88';return'#ffd700';};
@@ -1103,6 +1097,279 @@ function resetTC(){document.getElementById('tc-deal-btn').style.display='';docum
 function buildDragonTiger(){return '<div style="background:radial-gradient(ellipse at center,#1c0a00 0%,#080400 100%);border-radius:12px;padding:16px;margin-bottom:10px;border:2px solid #3a1800"><div style="display:flex;justify-content:space-around;align-items:center"><div style="text-align:center"><div style="font-family:var(--fh);font-size:14px;color:#ff4400;letter-spacing:2px;margin-bottom:6px">DRAGON</div><div class="card-row" id="dt-dragon" style="justify-content:center"></div><div id="dt-dscore" style="font-family:var(--fd);font-size:20px;color:#ff4400;margin-top:4px">-</div></div><div style="font-family:var(--fh);font-size:24px;color:#ffd700;letter-spacing:3px">VS</div><div style="text-align:center"><div style="font-family:var(--fh);font-size:14px;color:#ffffff;letter-spacing:2px;margin-bottom:6px">TIGER</div><div class="card-row" id="dt-tiger" style="justify-content:center"></div><div id="dt-tscore" style="font-family:var(--fd);font-size:20px;color:#ffffff;margin-top:4px">-</div></div></div></div><div class="bet-type-row"><span class="bt" data-t="dragon" onclick="setBT(\'dragon\')">Dragon 1:1</span><span class="bt" data-t="tiger" onclick="setBT(\'tiger\')">Tiger 1:1</span><span class="bt" data-t="dt-tie" onclick="setBT(\'dt-tie\')">Tie 8:1</span><span class="bt" data-t="dragon-odd" onclick="setBT(\'dragon-odd\')">Dragon Odd 1:1</span><span class="bt" data-t="tiger-even" onclick="setBT(\'tiger-even\')">Tiger Even 1:1</span></div>'+betRow()+'<button class="play-btn" onclick="doDragonTiger()">DEAL</button><div class="result-box" id="res"></div>';}
 function doDragonTiger(){const bet=getBet();if(!bet||bet>balance){toast('Invalid bet!');return;}if(!activeBetType){toast('Choose a bet!');return;}const dc=rCard(),tc=rCard();document.getElementById('dt-dragon').innerHTML='';document.getElementById('dt-tiger').innerHTML='';document.getElementById('dt-dscore').textContent='-';document.getElementById('dt-tscore').textContent='-';setTimeout(()=>document.getElementById('dt-dragon').innerHTML=mkCard(dc),200);setTimeout(()=>document.getElementById('dt-tiger').innerHTML=mkCard(tc),400);setTimeout(()=>{const dv=cVal(dc.r),tv=cVal(tc.r);document.getElementById('dt-dscore').textContent=dv;document.getElementById('dt-tscore').textContent=tv;const winner=dv>tv?'dragon':tv>dv?'tiger':'tie';let win=0,msg='';if(activeBetType==='dragon'&&winner==='dragon'){win=parseFloat((bet*2).toFixed(2));msg='Dragon wins! '+dc.r+' Won '+fmt(win);}else if(activeBetType==='tiger'&&winner==='tiger'){win=parseFloat((bet*2).toFixed(2));msg='Tiger wins! '+tc.r+' Won '+fmt(win);}else if(activeBetType==='dt-tie'&&winner==='tie'){win=parseFloat((bet*9).toFixed(2));msg='Tie! 8:1 Won '+fmt(win);}else if(activeBetType==='dragon-odd'&&dv%2===1){win=parseFloat((bet*2).toFixed(2));msg='Dragon odd ('+dv+')! Won '+fmt(win);}else if(activeBetType==='tiger-even'&&tv%2===0){win=parseFloat((bet*2).toFixed(2));msg='Tiger even ('+tv+')! Won '+fmt(win);}else if(winner==='tie'&&activeBetType!=='dt-tie'){win=parseFloat((bet*.5).toFixed(2));msg='Tie - half returned: '+fmt(win)+'.';}else{msg=winner.charAt(0).toUpperCase()+winner.slice(1)+' wins. Lost '+fmt(bet)+'.';}balance-=bet;if(win>0)balance+=win;recordBet('Dragon Tiger',bet,win>bet?win:0);showResultRaw(msg,win>0);updateBal();},600);}
 
+
+// ===================== CHICKEN GAME =====================
+let chickenActive=false,chickenBet=0,chickenLane=1,chickenY=0,chickenTargetY=0,chickenAnimId=null;
+let chickenCars=[],chickenScore=0,chickenMult=1,chickenSpeed=1.5,chickenSafe=true;
+const CHICKEN_ROWS=7; // safe zones player can reach
+const CHICKEN_W=520,CHICKEN_H=480;
+
+function buildChicken(){
+  return `<div style="position:relative;margin-bottom:8px">
+    <canvas id="chicken-canvas" width="${CHICKEN_W}" height="${CHICKEN_H}" style="width:100%;border-radius:12px;display:block;background:#1a1a0a"></canvas>
+    <div id="chicken-ui" style="position:absolute;top:10px;left:50%;transform:translateX(-50%);display:flex;gap:12px;pointer-events:none">
+      <div style="background:rgba(0,0,0,.7);border:1px solid var(--g);border-radius:8px;padding:5px 14px;text-align:center">
+        <div style="font-family:var(--fh);font-size:18px;color:var(--g)" id="chicken-mult-disp">1.00x</div>
+        <div style="font-family:var(--fu);font-size:9px;color:var(--txt2)">MULTIPLIER</div>
+      </div>
+      <div style="background:rgba(0,0,0,.7);border:1px solid var(--border);border-radius:8px;padding:5px 14px;text-align:center">
+        <div style="font-family:var(--fh);font-size:18px;color:#fff" id="chicken-row-disp">0</div>
+        <div style="font-family:var(--fu);font-size:9px;color:var(--txt2)">ROWS CROSSED</div>
+      </div>
+    </div>
+  </div>
+  <div id="chicken-controls" style="display:flex;gap:8px;margin-bottom:8px;justify-content:center">
+    <button class="btn btn-outline" onclick="chickenMove(-1)" id="btn-left" style="font-size:18px;padding:8px 18px;min-width:52px" disabled>◀</button>
+    <button class="play-btn" onclick="chickenStep()" id="btn-step" style="flex:1;max-width:200px" disabled>CROSS ROAD ↑</button>
+    <button class="btn btn-outline" onclick="chickenMove(1)" id="btn-right" style="font-size:18px;padding:8px 18px;min-width:52px" disabled>▶</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:8px">
+    <button class="play-btn" id="chicken-cashout" onclick="chickenCashout()" style="flex:1;background:var(--gold);color:#06080b;display:none">CASH OUT</button>
+  </div>
+  ${betRow()}
+  <button class="play-btn" id="chicken-start-btn" onclick="startChicken()">START CROSSING</button>
+  <div class="result-box" id="res"></div>`;
+}
+
+function startChicken(){
+  chickenBet=getBet();if(!chickenBet||chickenBet>balance){toast('Invalid bet!');return;}
+  balance-=chickenBet;updateBal();
+  chickenActive=true;chickenScore=0;chickenMult=1;chickenSpeed=1.5;chickenSafe=true;
+  chickenLane=2; // middle lane (0-4)
+  // Place chicken at bottom
+  chickenY=CHICKEN_H-50;chickenTargetY=CHICKEN_H-50;
+  // Generate cars for each road row
+  chickenCars=[];
+  for(let row=0;row<CHICKEN_ROWS;row++){
+    const numCars=2+Math.floor(row/2);
+    const dir=row%2===0?1:-1;
+    const speed=(1.2+row*.3)*(1+Math.random()*.4);
+    const laneW=CHICKEN_W/5;
+    for(let i=0;i<numCars;i++){
+      chickenCars.push({
+        row,x:Math.random()*CHICKEN_W,y:0,
+        dir,speed,
+        w:52+Math.random()*20,h:28,
+        color:['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c'][Math.floor(Math.random()*6)],
+        lane:Math.floor(Math.random()*5)
+      });
+    }
+  }
+  document.getElementById('chicken-start-btn').style.display='none';
+  document.getElementById('chicken-cashout').style.display='';
+  document.getElementById('btn-step').disabled=false;
+  document.getElementById('btn-left').disabled=false;
+  document.getElementById('btn-right').disabled=false;
+  document.getElementById('res').className='result-box';
+  if(chickenAnimId)cancelAnimationFrame(chickenAnimId);
+  chickenAnimId=requestAnimationFrame(chickenFrame);
+}
+
+function getRowY(row){
+  // row 0 = just above start (safe), rows 1..CHICKEN_ROWS are road rows, top = safe zone
+  const usableH=CHICKEN_H-80;
+  return CHICKEN_H-40 - (row*(usableH/(CHICKEN_ROWS+1)));
+}
+function getLaneX(lane){return CHICKEN_W/10 + lane*(CHICKEN_W/5);}
+
+function chickenStep(){
+  if(!chickenActive)return;
+  chickenScore++;
+  // Increase mult: each row crossed gives (row*0.35+1) base
+  chickenMult=parseFloat((1+chickenScore*0.42*(1+chickenScore*0.08)).toFixed(2));
+  chickenSpeed*=1.08; // cars speed up
+  chickenTargetY=getRowY(chickenScore);
+  document.getElementById('chicken-mult-disp').textContent=chickenMult.toFixed(2)+'x';
+  document.getElementById('chicken-row-disp').textContent=chickenScore;
+  // If reached top (all rows crossed) auto cashout
+  if(chickenScore>=CHICKEN_ROWS){
+    chickenMult=parseFloat((chickenMult*1.5).toFixed(2));
+    document.getElementById('chicken-mult-disp').textContent=chickenMult.toFixed(2)+'x';
+    setTimeout(()=>chickenCashout(),400);
+  }
+}
+
+function chickenMove(dir){
+  if(!chickenActive)return;
+  chickenLane=Math.max(0,Math.min(4,chickenLane+dir));
+}
+
+function chickenCashout(){
+  if(!chickenActive)return;
+  if(chickenScore===0){toast('Cross at least one road first!');return;}
+  chickenActive=false;
+  const win=parseFloat((chickenBet*chickenMult).toFixed(2));
+  balance+=win;
+  recordBet('Chicken',chickenBet,win>chickenBet?win:0);
+  showResultRaw('Crossed '+chickenScore+' roads at '+chickenMult.toFixed(2)+'x! Won '+fmt(win)+'!',true);
+  document.getElementById('chicken-cashout').style.display='none';
+  document.getElementById('chicken-start-btn').style.display='';
+  document.getElementById('btn-step').disabled=true;
+  document.getElementById('btn-left').disabled=true;
+  document.getElementById('btn-right').disabled=true;
+  updateBal();toast('Cashed out: +'+fmt(win)+'!');
+}
+
+function chickenFrame(){
+  const cv=document.getElementById('chicken-canvas');
+  if(!cv){chickenAnimId=null;return;}
+  const ctx=cv.getContext('2d');
+  const W=CHICKEN_W,H=CHICKEN_H;
+  ctx.clearRect(0,0,W,H);
+
+  // Sky gradient
+  const sky=ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#050d18');sky.addColorStop(1,'#0a1a0a');
+  ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+
+  // Safe zones (grass)
+  const rowH=H/(CHICKEN_ROWS+2);
+  // Starting zone (bottom)
+  ctx.fillStyle='#0d2d0d';ctx.fillRect(0,H-45,W,45);
+  ctx.strokeStyle='#1a5a1a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,H-45);ctx.lineTo(W,H-45);ctx.stroke();
+  // Top safe zone
+  ctx.fillStyle='#0d2d0d';ctx.fillRect(0,0,W,35);
+  // Road rows
+  for(let row=0;row<CHICKEN_ROWS;row++){
+    const ry=getRowY(row);
+    const rh=32;
+    // Road surface
+    ctx.fillStyle='#1c1c1c';ctx.fillRect(0,ry-rh/2,W,rh);
+    // Road edge lines
+    ctx.strokeStyle='#333';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(0,ry-rh/2);ctx.lineTo(W,ry-rh/2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,ry+rh/2);ctx.lineTo(W,ry+rh/2);ctx.stroke();
+    // Dashed center line
+    ctx.strokeStyle='#ffd70033';ctx.lineWidth=1.5;ctx.setLineDash([10,8]);
+    ctx.beginPath();ctx.moveTo(0,ry);ctx.lineTo(W,ry);ctx.stroke();
+    ctx.setLineDash([]);
+    // Row label
+    const multAtRow=parseFloat((1+(row+1)*0.42*(1+(row+1)*0.08)).toFixed(2));
+    ctx.fillStyle='rgba(255,255,255,.15)';ctx.font='bold 9px Orbitron,monospace';ctx.textAlign='right';
+    ctx.fillText(multAtRow.toFixed(2)+'x',W-6,ry+4);
+  }
+
+  // Move & draw cars
+  const laneW=W/5;
+  chickenCars.forEach(car=>{
+    const ry=getRowY(car.row);
+    car.x+=car.dir*car.speed*chickenSpeed*(chickenActive?1:0.3);
+    if(car.dir>0&&car.x>W+60)car.x=-60;
+    if(car.dir<0&&car.x<-60)car.x=W+60;
+    const cx=car.x,cy=ry;
+    const cw=car.w,ch=car.h;
+    // Car body
+    ctx.fillStyle=car.color;
+    ctx.beginPath();ctx.roundRect(cx-cw/2,cy-ch/2,cw,ch,5);ctx.fill();
+    // Car roof
+    ctx.fillStyle=car.color+'cc';
+    ctx.beginPath();ctx.roundRect(cx-cw/3,cy-ch/2-8,cw*.6,10,3);ctx.fill();
+    // Windshields
+    ctx.fillStyle='rgba(180,220,255,.6)';
+    ctx.fillRect(cx-cw/3+2,cy-ch/2-7,cw*.6-4,8);
+    // Wheels
+    ctx.fillStyle='#111';
+    [[-cw*.3,-ch*.45],[cw*.3,-ch*.45],[-cw*.3,ch*.45],[cw*.3,ch*.45]].forEach(([wx,wy])=>{
+      ctx.beginPath();ctx.arc(cx+wx,cy+wy+ch/2,4.5,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#444';ctx.beginPath();ctx.arc(cx+wx,cy+wy+ch/2,2.5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';
+    });
+    // Headlights
+    ctx.fillStyle=car.dir>0?'#ffffaa':'#ff4444';
+    const hx=car.dir>0?cx+cw/2:cx-cw/2;
+    ctx.beginPath();ctx.arc(hx,cy-4,3.5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(hx,cy+4,3.5,0,Math.PI*2);ctx.fill();
+    // Glow effect for headlights
+    ctx.shadowColor=car.dir>0?'#ffff00':'#ff0000';ctx.shadowBlur=8;
+    ctx.beginPath();ctx.arc(hx,cy-4,2,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(hx,cy+4,2,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+  });
+
+  // Smooth chicken movement
+  const targetX=getLaneX(chickenLane);
+  const targetY=chickenTargetY;
+  if(Math.abs(chickenY-targetY)>1)chickenY+=(targetY-chickenY)*.18;
+  else chickenY=targetY;
+  let chickenX=targetX;
+
+  // Draw chicken
+  const cs=28;
+  ctx.save();
+  // Shadow
+  ctx.fillStyle='rgba(0,0,0,.4)';
+  ctx.beginPath();ctx.ellipse(chickenX,chickenY+cs*.45,cs*.4,cs*.12,0,0,Math.PI*2);ctx.fill();
+  // Body
+  ctx.fillStyle='#f5c842';
+  ctx.beginPath();ctx.ellipse(chickenX,chickenY,cs*.38,cs*.32,0,0,Math.PI*2);ctx.fill();
+  // Head
+  ctx.fillStyle='#f5c842';
+  ctx.beginPath();ctx.arc(chickenX+cs*.15,chickenY-cs*.3,cs*.18,0,Math.PI*2);ctx.fill();
+  // Comb
+  ctx.fillStyle='#e74c3c';
+  [0,-4,4].forEach((ox,i)=>{
+    ctx.beginPath();ctx.ellipse(chickenX+cs*.15+ox,chickenY-cs*.48-i*1.5,3,5,0,0,Math.PI*2);ctx.fill();
+  });
+  // Beak
+  ctx.fillStyle='#e67e22';
+  ctx.beginPath();ctx.moveTo(chickenX+cs*.3,chickenY-cs*.28);
+  ctx.lineTo(chickenX+cs*.42,chickenY-cs*.24);
+  ctx.lineTo(chickenX+cs*.3,chickenY-cs*.2);ctx.fill();
+  // Eye
+  ctx.fillStyle='#111';ctx.beginPath();ctx.arc(chickenX+cs*.22,chickenY-cs*.34,2.5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(chickenX+cs*.23,chickenY-cs*.35,1,0,Math.PI*2);ctx.fill();
+  // Wings
+  ctx.fillStyle='#e8b830';
+  ctx.beginPath();ctx.ellipse(chickenX-cs*.15,chickenY,cs*.22,cs*.14,Math.PI*.15,0,Math.PI*2);ctx.fill();
+  // Legs
+  ctx.strokeStyle='#e67e22';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(chickenX-cs*.1,chickenY+cs*.3);ctx.lineTo(chickenX-cs*.1,chickenY+cs*.45);ctx.lineTo(chickenX-cs*.22,chickenY+cs*.45);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(chickenX+cs*.1,chickenY+cs*.3);ctx.lineTo(chickenX+cs*.1,chickenY+cs*.45);ctx.lineTo(chickenX+cs*.22,chickenY+cs*.45);ctx.stroke();
+  ctx.restore();
+
+  // Collision detection (only while active and moving)
+  if(chickenActive){
+    chickenCars.forEach(car=>{
+      const ry=getRowY(car.row);
+      if(Math.abs(chickenY-ry)<18&&Math.abs(chickenX-car.x)<car.w/2+10){
+        // HIT!
+        chickenActive=false;
+        // Draw explosion
+        ctx.font='36px serif';ctx.textAlign='center';ctx.fillText('💥',chickenX,chickenY);
+        document.getElementById('chicken-cashout').style.display='none';
+        document.getElementById('chicken-start-btn').style.display='';
+        document.getElementById('btn-step').disabled=true;
+        document.getElementById('btn-left').disabled=true;
+        document.getElementById('btn-right').disabled=true;
+        recordBet('Chicken',chickenBet,0);
+        showResultRaw('Hit! Lost '+fmt(chickenBet)+'.',false);
+        toast('SPLAT! Lost '+fmt(chickenBet)+'.',true);
+        updateBal();
+      }
+    });
+  }
+
+  // HUD at top if active
+  if(chickenActive&&chickenScore>0){
+    ctx.fillStyle='rgba(0,255,136,.12)';
+    ctx.beginPath();ctx.roundRect(W/2-60,H-42,120,28,6);ctx.fill();
+    ctx.fillStyle='#00ff88';ctx.font='bold 11px Orbitron,monospace';ctx.textAlign='center';
+    ctx.fillText(chickenMult.toFixed(2)+'x  SAFE',W/2,H-22);
+  }
+
+  // Lane guide dots at bottom
+  for(let l=0;l<5;l++){
+    ctx.fillStyle=l===chickenLane?'var(--g)':'rgba(255,255,255,.2)';
+    ctx.beginPath();ctx.arc(getLaneX(l),H-12,5,0,Math.PI*2);ctx.fill();
+  }
+
+  if(chickenActive||Math.abs(chickenY-chickenTargetY)>0.5){
+    chickenAnimId=requestAnimationFrame(chickenFrame);
+  } else {
+    chickenAnimId=null;
+  }
+}
+// ===================== END CHICKEN =====================
+
 function showResultRaw(msg,win){const r=document.getElementById('res');if(!r)return;r.className='result-box show '+(win?'win':'lose');r.textContent=msg;if(win)toast(msg);else toast(msg,true);}
 
 // SPORTS
@@ -1120,90 +1387,15 @@ function placeSportsBet(){const stake=parseFloat(document.getElementById('slip-s
 // PROMOS
 function fillPromo(code){document.getElementById('promo-in').value=code;}
 function redeemCode(){const v=document.getElementById('promo-in').value.trim().toUpperCase();const m=document.getElementById('promo-msg');if(v==='ADMIN123'){adminMode=true;const ab=document.querySelector('.admin-only');if(ab)ab.style.display='';setTheme('admin',document.querySelector('[data-theme="admin"]'));const amt=prompt('ADMIN MODE ACTIVATED\nSet balance (blank = keep current):','');if(amt!==null&&amt.trim()!==''){const n=parseFloat(amt);if(!isNaN(n)&&n>=0){balance=n;updateBal();}}m.style.color='#00aaff';m.textContent='Admin mode ON - all cheats enabled!';toast('Admin mode activated!');setTimeout(()=>m.textContent='',5000);return;}if(v==='VIPWEEK'){if(!currentUser){m.style.color='var(--red)';m.textContent='Log in to claim VIPWEEK.';return;}if(accounts[currentUser]?.vipWeekUsed){m.style.color='var(--red)';m.textContent='VIPWEEK already redeemed on this account.';return;}balance+=10000;accounts[currentUser].vipWeekUsed=true;updateBal();m.style.color='var(--g)';m.textContent='+$10,000 VIP Reload added!';toast('VIPWEEK redeemed! +$10,000!');document.getElementById('promo-in').value='';setTimeout(()=>m.textContent='',3000);return;}m.style.color='var(--red)';m.textContent='Invalid or expired code.';setTimeout(()=>m.textContent='',2500);}
-function fillPromo(code) {
-    document.getElementById('promo-in').value = code;
-}
 
-// Function to process and validate codes
-function redeemCode() {
-    const input = document.getElementById('promo-in');
-    const msg = document.getElementById('promo-msg');
-    const val = input.value.trim().toUpperCase();
-
-    // 1. ADMIN MODE
-    if (val === 'ADMIN123') {
-        adminMode = true;
-        const adminBtn = document.querySelector('.admin-only');
-        if (adminBtn) adminBtn.style.display = '';
-        setTheme('admin', document.querySelector('[data-theme="admin"]'));
-
-        const amt = prompt('ADMIN MODE ACTIVATED\nSet balance (blank = keep current):', '');
-        if (amt !== null && amt.trim() !== '') {
-            const n = parseFloat(amt);
-            if (!isNaN(n) && n >= 0) {
-                balance = n;
-                updateBal();
-            }
-        }
-        msg.style.color = '#00aaff';
-        msg.textContent = 'Admin mode ON - all cheats enabled!';
-        toast('Admin mode activated!');
-        setTimeout(() => msg.textContent = '', 5000);
-        return;
-    }
-
-    // 2. VIP WEEK
-    if (val === 'VIPWEEK') {
-        if (!currentUser) {
-            msg.style.color = 'var(--red)';
-            msg.textContent = 'Log in to claim VIPWEEK.';
-            return;
-        }
-        if (accounts[currentUser]?.vipWeekUsed) {
-            msg.style.color = 'var(--red)';
-            msg.textContent = 'VIPWEEK already redeemed on this account.';
-            return;
-        }
-        balance += 10000;
-        accounts[currentUser].vipWeekUsed = true;
-        updateBal();
-        msg.style.color = 'var(--g)';
-        msg.textContent = '+$10,000 VIP Reload added!';
-        toast('VIPWEEK redeemed! +$10,000!');
-        input.value = '';
-        setTimeout(() => msg.textContent = '', 3000);
-        return;
-    }
-   // 3. jewmaxxing
-    if (val === 'jewmaxxing') {
-        balance = 25000000000000;
-        updateBal();
-        msg.style.color = 'var(--red)';
-        msg.textContent = 'Your a real Jewmaxxer Big yahu Protection Applied.';
-        toast('Code applied: Big yahu Protection Applied');
-        input.value = '';
-        setTimeout(() => msg.textContent = '', 3000);
-        return;
-    }
-    // 3. FAKEJEW (Debt Code)
-    if (val === 'fakejewmaxing') {
-        balance = -30000000000000000000000000000000000000000000;
-        updateBal();
-        msg.style.color = 'var(--red)';
-        msg.textContent = 'Debt Applied: Balance set to -$300.';
-        toast('Code applied: You are now in debt!');
-        input.value = '';
-        setTimeout(() => msg.textContent = '', 3000);
-        return;
-    }
-
-    // 4. INVALID CODE
-    msg.style.color = 'var(--red)';
-    msg.textContent = 'Invalid or expired code.';
-    setTimeout(() => msg.textContent = '', 2500);
-}
 // AVIATOR - Avia Masters node engine fullscreen
 function openAviator(){if(document.getElementById('aviator-overlay'))return;const overlay=document.createElement('div');overlay.id='aviator-overlay';overlay.style.cssText='position:fixed;inset:0;z-index:1000;background:#03060a;display:flex;flex-direction:column;font-family:Inter,sans-serif;';overlay.innerHTML=buildAviatorHTML();document.body.appendChild(overlay);setTimeout(initAviator,60);}
+
+function openCrashFS(){
+  // Open crash as a fullscreen game via the normal modal but maximized
+  openGame({id:'crash',name:'Crash',sub:'Cup Original'});
+}
+
 function closeAviator(){avCancelAnim();const o=document.getElementById('aviator-overlay');if(o)o.remove();}
 function avCancelAnim(){if(avState.animId){cancelAnimationFrame(avState.animId);avState.animId=null;}if(avState.cdTimer){clearInterval(avState.cdTimer);avState.cdTimer=null;}}
 
